@@ -101,7 +101,7 @@ public class Main {
         	System.out.println(a+" "+b);
             System.out.println(s1+" "+s2);} 
     }
-}
+
 
     public static void main(String[] args) {
 
