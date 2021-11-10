@@ -53,10 +53,55 @@ public class Main {
 
     }
 
-    static void convert(String s)
+    public static void convert(String s)
     {
-        System.out.println("В разработке ");
+        System.out.println("Выберете исходную валюту:\n-BYN\n-USD\n-EUR\n-RUB\n ");
+        int i;
+        float k, s1, s2;
+        s2 =0f;
+        String j,b, a;
+
+        Scanner once = new Scanner(System.in);
+
+       
+        {
+            j=once.nextLine();
+            j=j+" ";
+            b="";
+            i=-1;
+
+            while(j.charAt(++i)!=' ')
+                b=b+j.charAt(i);}
+        a = b;
+        
+        System.out.println("Выберете валюту, в которую нужно конвертировать:\n-BYN\n-USD\n-EUR\n-RUB\n ");
+        Scanner two = new Scanner(System.in);
+
+        
+        {
+            j=two.nextLine();
+            j=j+" ";
+            b="";
+            i=-1;
+
+            while(j.charAt(++i)!=' ')
+                b=b+j.charAt(i);}
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Введите сумму c точностью до сотых и запятой между числами  : s= ");
+        s1 = in.nextFloat();
+        System.out.println("Введите курc c точностью до сотых и запятой между числами валют "+a+" и  "+b+": k= ");
+        k = in.nextFloat();
+        if(a==b)
+        {	
+        System.out.println(a+" "+a);
+        System.out.println(s1+" "+s1);} 
+        else {
+        	s2 = s1 * k;
+        	System.out.println(a+" "+b);
+            System.out.println(s1+" "+s2);} 
     }
+}
 
     public static void main(String[] args) {
 
