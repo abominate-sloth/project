@@ -55,7 +55,7 @@ public class Main {
 
     static void convert(String s)
     {
-        System.out.println("В разработке");
+        System.out.println("В разработке ");
     }
 
     public static void main(String[] args) {
