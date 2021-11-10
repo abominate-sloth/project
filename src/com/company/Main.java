@@ -53,7 +53,7 @@ public class Main {
 
     }
 
-    public static void convert(String s)
+    public static void convert()
     {
         System.out.println("Выберете исходную валюту:\n-BYN\n-USD\n-EUR\n-RUB\n ");
         int i;
