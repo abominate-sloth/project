@@ -1,6 +1,9 @@
 package com.company;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.Date;
@@ -13,7 +16,12 @@ public class Main {
 
     static void help()
     {
-        System.out.println("-help\n-show\n-convertor\n-add\n-delete\n");
+        System.out.println("Все команды вводить с маленькой буквы\n" +
+                "просмотреть день.месяц.год (пример просмотреть 12.12.2020), показывает ве записи на указанный день\n" +
+                "конвертировать сколько из какой валюты в какую(пример конвертировать 12 BYN в RUB)\n" +
+                "добавить день.месяц.год-часы:минуты что я должен сделать (пример добавить 12.12.2021-15:15 пойти в гости)\n" +
+                "удалить день.месяц.год-часы:минуты (удалить 12.12.2021-15:15)\n" +
+                "выход сохраняет все изменения и завершает работу");
     }
 
     static int add(Date day,String s)
@@ -39,10 +47,13 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-            int p=0,i,chek;
-            long x;
-            Date day= new Date();
-            String s,v;
+        int p=0,chek;
+        long x;
+        Date day;
+        String s;
+        String[] podstr;
+        SimpleDateFormat FormNo = new SimpleDateFormat("dd.MM.yyyy");
+
             /*strDate="12.10.2020";
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         GregorianCalendar calendar = new GregorianCalendar();
@@ -59,36 +70,61 @@ public class Main {
         while(p==0)
             {
                 s=in.nextLine();
-                s=s+" ";
-                v="";
-                i=-1;
+                podstr = s.split(" +",3);
 
-                while(s.charAt(++i)!=' ')
-                    v=v+s.charAt(i);
-
-                switch (v) {
+                switch (podstr[0]) {
                     case "добавить":
-                        chek=add(day,s);
-                        if(chek==2)
-                            System.out.println("Такая запись уже есть");
+                        try{
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH:mm");
+                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+
+                            chek=add(day,podstr[2]);
+
+                            if(chek==2)
+                                System.out.println("Такая запись уже есть");
+                        }catch(Exception e){
+                            System.out.println("Не удалось распознать дату либо отсуствует задача");
+                        }
                         break;
+
                     case "просмотреть":
-                        chek=show(day);
-                        if(chek==2)
-                            System.out.println("Ничего не найдено");
+                        try{
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+
+                            chek=show(day);
+                            if(chek==2)
+                                System.out.println("Ничего не найдено!");
+
+                        }catch(Exception e){
+                            System.out.println("Не удалось распознать дату");
+                        }
                         break;
+
                     case "помощь": help();
                         break;
-                    case "удалить": chek=delete(day);
-                        if(chek==2)
-                            System.out.println("Таких записей не найдено");
 
+                    case "удалить":
+                        try{
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH:mm");
+                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+
+                            chek=delete(day);
+                        if(chek==2)
+                            System.out.println("То,что можно было удалить, не найдено!");
+
+                    }catch(Exception e){
+                        System.out.println("Не удалось распознать дату либо отсуствует задача");
+                    }
                         break;
+
                     case "конвертировать":
                         chek=convert(s);
                         if(chek==-1)
                             System.out.println("Формат не совпадает");
+                        else System.out.println(chek);
                         break;
+
                     case "выход": p=1;
                         break;
 
