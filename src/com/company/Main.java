@@ -53,31 +53,19 @@ public class Main {
         String[] podstr;
         SimpleDateFormat FormNo = new SimpleDateFormat("dd.MM.yyyy");
 
-            /*strDate="12.10.2020";
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        GregorianCalendar calendar = new GregorianCalendar();
-
-        Date day= ;new Date();
-
-        try {
-            day = formatter.parse(strDate);
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
         while(p==0)
             {
                 s=in.nextLine();
-                podstr = s.split(" +",3);
+                s=' '+s;
+                podstr = s.split(" +",4);
 
-                switch (podstr[0]) {
+                switch (podstr[1]) {
                     case "добавить":
                         try{
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH:mm");
-                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+                            day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
 
-                            chek=add(day,podstr[2]);
+                            chek=add(day,podstr[3]);
 
                             if(chek==2)
                                 System.out.println("Такая запись уже есть");
@@ -89,7 +77,7 @@ public class Main {
                     case "просмотреть":
                         try{
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+                            day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
 
                             chek=show(day);
                             if(chek==2)
@@ -106,14 +94,14 @@ public class Main {
                     case "удалить":
                         try{
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH:mm");
-                            day = Date.from(LocalDate.parse(podstr[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+                            day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
 
                             chek=delete(day);
                         if(chek==2)
                             System.out.println("То,что можно было удалить, не найдено!");
 
                     }catch(Exception e){
-                        System.out.println("Не удалось распознать дату либо отсуствует задача");
+                        System.out.println("Не удалось распознать дату");
                     }
                         break;
 
