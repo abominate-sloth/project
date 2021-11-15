@@ -12,6 +12,7 @@ public class Main {
     static int n=0;
     static Date[] a_Date=new Date[101];
     static String[] a_Task=new String[101];
+    static float[][] cor=new float[4][4];
 
     static void help()
     {
@@ -25,7 +26,14 @@ public class Main {
 
     static int add(Date day,String s)
     {
-        return 1;
+       for(var i=0;i<n;i++)
+           if((a_Date[i].equals(day))&&(a_Task[i].equals(s)))
+            return(2);
+
+       a_Date[n]=day;
+       a_Task[n]=s;
+       n++;
+       return 1;
     }
 
     static int show(Date day)
@@ -38,7 +46,10 @@ public class Main {
         return 1;
     }
 
-    static int convert(String s) {return 1;}
+    static int convert(String s) {
+        String[] podstr;
+        podstr = s.split(" +");
+        return 1;}
 
     public static void main(String[] args) {
 
