@@ -38,16 +38,13 @@ public class Main {
         return 1;
     }
 
-    static int convert(String s)
-    {
-        return 1;
-    }
+    static int convert(String s) {return 1;}
 
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
         int p=0,chek;
-        long x;
+
         Date day;
         String s;
         String[] podstr;
@@ -70,7 +67,17 @@ public class Main {
                             if(chek==2)
                                 System.out.println("Такая запись уже есть");
                         }catch(Exception e){
-                            System.out.println("Не удалось распознать дату либо отсуствует задача");
+                            try{
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH");
+                                day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+
+                                chek=add(day,podstr[3]);
+
+                                if(chek==2)
+                                    System.out.println("Такая запись уже есть");
+                            }catch(Exception x){
+                                System.out.println("Не удалось распознать дату либо отсуствует задача");
+                            }
                         }
                         break;
 
@@ -101,7 +108,18 @@ public class Main {
                             System.out.println("То,что можно было удалить, не найдено!");
 
                     }catch(Exception e){
-                        System.out.println("Не удалось распознать дату");
+                            try{
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH");
+                                day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+
+                                chek=delete(day);
+                                if(chek==2)
+                                    System.out.println("То,что можно было удалить, не найдено!");
+
+                            }catch(Exception x){
+
+                                System.out.println("Не удалось распознать дату");
+                            }
                     }
                         break;
 
