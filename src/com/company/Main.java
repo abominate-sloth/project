@@ -26,7 +26,7 @@ public class Main {
 
     static int add(Date day,String s)
     {
-       for(var i=0;i<n;i++)
+       for(int i=0;i<n;i++)
            if((a_Date[i].equals(day))&&(a_Task[i].equals(s)))
             return(2);
 
