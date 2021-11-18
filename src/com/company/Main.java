@@ -35,10 +35,21 @@ public class Main {
        n++;
        return 1;
     }
+    static int show(Date day) {
+        Date[] find_Date=new Date[101];
+        String[] find_Task=new String[101];
+        int k=0;
+        for (int i = 0;i < n; i++ )
+            if(a_Date[i].getTime()-day.getTime()<24*60*60*1000 && a_Date[i].getTime()-day.getTime()>=0)
+            {   find_Date[k]=a_Date[i];
+                find_Task[k]=a_Task[i];
+                k++;
+            }
 
-    static int show(Date day)
-    {
-        return 1;
+        for (int i = 0;i < k; i++ )
+             System.out.println(find_Date[i]+"-"+find_Task[i]);
+
+            return 1;
     }
 
     static int delete(Date day)
