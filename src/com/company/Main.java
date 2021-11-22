@@ -1,4 +1,4 @@
-package company;
+package com.company;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,6 +53,9 @@ public class Main {
                 k++;
             }
         }
+        if(k==0)
+         return 2;
+
         for (int i = 0;i < k; i++ )
             System.out.println(find_Time[i]+" - "+find_Task[i]);
 
@@ -61,12 +64,21 @@ public class Main {
 
     static int delete(Date day)
     {
-        return 1;
+     int i;
+
+      if(n==0)
+          return 2;
+
+      for(i=0;(i<n-1)&&(!a_Date[i].equals(day));i++);
+
+      if( a_Date[i].equals(day) )
+      {a_Date[i]=a_Date[n-1];n--;return 1;}
+
+      return 2;
     }
 
     static int convert(String s) {
-        String[] podstr;
-        podstr = s.split(" +");
+
         return 1;}
 
     public static void main(String[] args) {
@@ -82,7 +94,7 @@ public class Main {
 
             s = in.nextLine();
             s = ' '+s;
-            podstr = s.split(" ",4);
+            podstr = s.split(" +",4);
 
             switch (podstr[1]) {
                 case "добавить":
@@ -99,28 +111,16 @@ public class Main {
                         if(check == 2)
                             System.out.println("Такая запись уже есть");
 
-                    }catch(Exception e){
-                        try{
-                            DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-                            day = format.parse(podstr[2]);
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(day);
-                            DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
-                            time = dateFormat.format(calendar.getTime());
-
-                            check = add(day, podstr[3], time);
-
-                            if(check == 2) System.out.println("Такая запись уже есть");
-                        }catch(Exception x){
+                    } catch(Exception x){
                             System.out.println("Не удалось распознать дату либо отсуствует задача");
                         }
-                    }
+
                     break;
 
                 case "просмотреть":
                     try {
-                        DateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-                        day = format1.parse(podstr[2]);
+                        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                        day = format.parse(podstr[2]);
                         check = show(day);
                         if(check == 2)
                             System.out.println("Ничего не найдено!");
@@ -133,27 +133,16 @@ public class Main {
 
                 case "удалить":
                     try{
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH:mm");
-                        day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
+                        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+                        day = format.parse(podstr[2]);
 
                         check = delete(day);
                         if(check == 2)
-                            System.out.println("То,что можно было удалить, не найдено!");
-
-                    }catch(Exception e){
-                        try{
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH");
-                            day = Date.from(LocalDate.parse(podstr[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());;
-
-                            check = delete(day);
-                            if(check == 2)
-                                System.out.println("То,что можно было удалить, не найдено!");
-
-                        }catch(Exception x){
-
+                             System.out.println("То,что можно было удалить, не найдено!");
+                        else System.out.println("Удалено успешно!");
+                    }catch(Exception x){
                             System.out.println("Не удалось распознать дату");
                         }
-                    }
                     break;
 
                 case "конвертировать":
