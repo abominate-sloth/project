@@ -1,10 +1,8 @@
 package com.company;
 
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.Date;
@@ -14,8 +12,6 @@ public class Main {
     static int n = 0;
     static Date[] a_Date = new Date[101];
     static String[] a_Task = new String[101];
-    static String[] a_Time = new String[101];
-
 
     static void help()
     {
@@ -27,14 +23,14 @@ public class Main {
                 "\"выход\" - сохраняет все изменения и завершает работу.");
     }
 
-    static int add (Date day, String task, String time)
+    static int add (Date day, String task)
     {
         for(int i = 0; i < n; i++)
             if( (a_Date[i].equals(day)) && (a_Task[i].equals(task)) )
                 return 2;
         a_Date[n] = day;
         a_Task[n] = task;
-        a_Time[n] = time;
+
         n++;
         return 1;
     }
@@ -42,22 +38,22 @@ public class Main {
     public static int show (Date day) {
         Date[] find_Date = new Date[101];
         String[] find_Task = new String[101];
-        String[] find_Time = new String[101];
-        int k = 0;
+         int k = 0;
 
         for (int i = 0; i < n; i++) {
             if(a_Date[i].getTime()-day.getTime()<24*60*60*1000 && a_Date[i].getTime()-day.getTime()>=0){
                 find_Date[k] = a_Date[i];
                 find_Task[k] = a_Task[i];
-                find_Time[k] = a_Time[i];
                 k++;
             }
         }
         if(k==0)
          return 2;
 
+        DateFormat df = new SimpleDateFormat("HH:mm");
+
         for (int i = 0;i < k; i++ )
-            System.out.println(find_Time[i]+" - "+find_Task[i]);
+            System.out.println(df.format(a_Date[i])+" - "+find_Task[i]);
 
         return 1;
     }
@@ -84,11 +80,45 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Чтобы ознакомиться с инструкциями введите \"помощь\".");
 
-        Scanner in = new Scanner(System.in);
         int p = 0,check;
-        Date day;
+        Date day = new Date();
         String s, time;
         String[] podstr;
+
+        Scanner in = new Scanner(System.in);
+
+        try {
+            File file = new File("src\\com\\company\\save.txt");
+            //создаем объект FileReader для объекта File
+            FileReader fr = new FileReader(file);
+            //создаем BufferedReader с существующего FileReader для построчного считывания
+            BufferedReader reader = new BufferedReader(fr);
+            // считаем сначала первую строку
+            s = reader.readLine();
+
+            int i;
+            n=Integer.parseInt(s);
+
+            DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+            //day = format.parse(podstr[1]);
+
+            for(i=0;i<n;i++)
+            {   s=reader.readLine();
+                podstr = s.split(" +",2);
+                try{day = format.parse(podstr[0]);a_Date[i]=day;}catch (Exception v ){System.out.println(podstr[0]);}
+
+
+                a_Task[i]=podstr[1];
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 
         while(p == 0) {
 
@@ -101,12 +131,8 @@ public class Main {
                     try{
                         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
                         day = format.parse(podstr[2]);
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(day);
-                        DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
-                        time = dateFormat.format(calendar.getTime());
 
-                        check = add(day, podstr[3], time);
+                        check = add(day, podstr[3]);
 
                         if(check == 2)
                             System.out.println("Такая запись уже есть");
