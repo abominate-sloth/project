@@ -76,15 +76,10 @@ public class Main {
 
         return 1;}
 
-    public static void main(String[] args) {
-        System.out.println("Чтобы ознакомиться с инструкциями введите \"помощь\".");
-
-        int p = 0,check;
-        Date day ;
+    static void read(){
         String s;
+        Date day;
         String[] podstr;
-
-        Scanner in = new Scanner(System.in);
 
         try {
             File file = new File("src\\com\\company\\save.txt");
@@ -113,6 +108,38 @@ public class Main {
             e.printStackTrace();
         }
 
+    }
+
+
+    static void save(){
+        try {
+            File file = new File("src\\com\\company\\save.txt");
+            FileWriter fw = new FileWriter(file);
+
+            fw.write(Integer.toString(n)+'\n');
+
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+
+            for (int i = 0;i < n; i++ )
+                fw.write(df.format(a_Date[i])+" - "+a_Task[i]+'\n');
+
+            fw.close();
+        } catch (IOException e) {
+
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Чтобы ознакомиться с инструкциями введите \"помощь\".");
+
+        int p = 0,check;
+        Date day ;
+        String s;
+        String[] podstr;
+
+        Scanner in = new Scanner(System.in);
+
+        read();
 
         while(p == 0) {
 
@@ -129,11 +156,14 @@ public class Main {
                         check = add(day, podstr[3]);
 
                         if(check == 2)
-                            System.out.println("Такая запись уже есть");
+                            System.out.println("Такая запись уже есть!");
+                        else System.out.println("Успешно добавлено!");
 
                     } catch(Exception x){
-                            System.out.println("Не удалось распознать дату либо отсуствует задача");
+                            System.out.println("Не удалось распознать дату либо отсуствует задача!");
                         }
+
+                    save();
 
                     break;
 
@@ -145,7 +175,7 @@ public class Main {
                         if(check == 2)
                             System.out.println("Ничего не найдено!");
 
-                    } catch (Exception e){System.out.println("Не удалось распознать дату");}
+                    } catch (Exception e){System.out.println("Не удалось распознать дату!");}
                     break;
 
                 case "помощь": help();
@@ -161,39 +191,27 @@ public class Main {
                              System.out.println("То,что можно было удалить, не найдено!");
                         else System.out.println("Удалено успешно!");
                     }catch(Exception x){
-                            System.out.println("Не удалось распознать дату");
+                            System.out.println("Не удалось распознать дату!");
                         }
+
+                    save();
+
                     break;
 
                 case "конвертировать":
                     check = convert(s);
                     if(check == -1)
-                        System.out.println("Формат не совпадает");
+                        System.out.println("Формат не совпадает!");
                     else System.out.println(check);
                     break;
 
                 case "выход": p = 1;
 
-                    try {
-                        File file = new File("src\\com\\company\\save.txt");
-                        FileWriter fw = new FileWriter(file);
-
-                        fw.write(Integer.toString(n)+'\n');
-
-                        DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-
-                        for (int i = 0;i < n; i++ )
-                            fw.write(df.format(a_Date[i])+" - "+a_Task[i]+'\n');
-
-                        fw.close();
-                    } catch (IOException e) {
-
-                    }
-
+                    save();
 
                     break;
 
-                default:System.out.println("Команда не распознана");
+                default:System.out.println("Команда не распознана!");
                     break;
             }
 
