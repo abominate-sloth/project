@@ -3,7 +3,6 @@ package com.company;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Scanner;
 import java.util.Date;
 
@@ -81,43 +80,38 @@ public class Main {
         System.out.println("Чтобы ознакомиться с инструкциями введите \"помощь\".");
 
         int p = 0,check;
-        Date day = new Date();
-        String s, time;
+        Date day ;
+        String s;
         String[] podstr;
 
         Scanner in = new Scanner(System.in);
 
         try {
             File file = new File("src\\com\\company\\save.txt");
-            //создаем объект FileReader для объекта File
             FileReader fr = new FileReader(file);
-            //создаем BufferedReader с существующего FileReader для построчного считывания
             BufferedReader reader = new BufferedReader(fr);
-            // считаем сначала первую строку
             s = reader.readLine();
 
             int i;
             n=Integer.parseInt(s);
 
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-            //day = format.parse(podstr[1]);
 
             for(i=0;i<n;i++)
             {   s=reader.readLine();
-                podstr = s.split(" +",2);
+                podstr = s.split(" +",3);
                 try{day = format.parse(podstr[0]);a_Date[i]=day;}catch (Exception v ){System.out.println(podstr[0]);}
 
-
-                a_Task[i]=podstr[1];
+                a_Task[i]=podstr[2];
             }
+
+            fr.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
 
         while(p == 0) {
@@ -179,6 +173,24 @@ public class Main {
                     break;
 
                 case "выход": p = 1;
+
+                    try {
+                        File file = new File("src\\com\\company\\save.txt");
+                        FileWriter fw = new FileWriter(file);
+
+                        fw.write(Integer.toString(n)+'\n');
+
+                        DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+
+                        for (int i = 0;i < n; i++ )
+                            fw.write(df.format(a_Date[i])+" - "+a_Task[i]+'\n');
+
+                        fw.close();
+                    } catch (IOException e) {
+
+                    }
+
+
                     break;
 
                 default:System.out.println("Команда не распознана");
