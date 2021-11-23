@@ -37,7 +37,7 @@ public class Main {
     public static int show (Date day) {
         Date[] find_Date = new Date[101];
         String[] find_Task = new String[101];
-         int k = 0;
+        int k = 0;
 
         for (int i = 0; i < n; i++) {
             if(a_Date[i].getTime()-day.getTime()<24*60*60*1000 && a_Date[i].getTime()-day.getTime()>=0){
@@ -46,11 +46,23 @@ public class Main {
                 k++;
             }
         }
+
+        for (int j = 1; j < k; j++){
+            for (int i = 0; i < k-1; i++){
+                if (a_Date[i].getTime() > a_Date[i+1].getTime()){
+                    Date x = a_Date[i];
+                    a_Date[i] = a_Date[i+1];
+                    a_Date[i+1] = x;
+                }
+            }
+        }
+        
+
         if(k==0)
-         return 2;
+            return 2;
+
 
         DateFormat df = new SimpleDateFormat("HH:mm");
-
         for (int i = 0;i < k; i++ )
             System.out.println(df.format(a_Date[i])+" - "+find_Task[i]);
 
@@ -59,17 +71,17 @@ public class Main {
 
     static int delete(Date day)
     {
-     int i;
+        int i;
 
-      if(n==0)
-          return 2;
+        if(n==0)
+            return 2;
 
-      for(i=0;(i<n-1)&&(!a_Date[i].equals(day));i++);
+        for(i=0;(i<n-1)&&(!a_Date[i].equals(day));i++);
 
-      if( a_Date[i].equals(day) )
-      {a_Date[i]=a_Date[n-1];n--;return 1;}
+        if( a_Date[i].equals(day) )
+        {a_Date[i]=a_Date[n-1];n--;return 1;}
 
-      return 2;
+        return 2;
     }
 
     static int convert(String s) {
@@ -82,7 +94,7 @@ public class Main {
         String[] podstr;
 
         try {
-            File file = new File("src\\com\\company\\save.txt");
+            File file = new File("D:\\JavaProject\\untitled\\src\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
@@ -113,7 +125,7 @@ public class Main {
 
     static void save(){
         try {
-            File file = new File("src\\com\\company\\save.txt");
+            File file = new File("D:\\JavaProject\\untitled\\src\\com\\company\\save.txt");
             FileWriter fw = new FileWriter(file);
 
             fw.write(Integer.toString(n)+'\n');
@@ -160,8 +172,8 @@ public class Main {
                         else System.out.println("Успешно добавлено!");
 
                     } catch(Exception x){
-                            System.out.println("Не удалось распознать дату либо отсуствует задача!");
-                        }
+                        System.out.println("Не удалось распознать дату либо отсуствует задача!");
+                    }
 
                     save();
 
@@ -188,11 +200,11 @@ public class Main {
 
                         check = delete(day);
                         if(check == 2)
-                             System.out.println("То,что можно было удалить, не найдено!");
+                            System.out.println("То,что можно было удалить, не найдено!");
                         else System.out.println("Удалено успешно!");
                     }catch(Exception x){
-                            System.out.println("Не удалось распознать дату!");
-                        }
+                        System.out.println("Не удалось распознать дату!");
+                    }
 
                     save();
 
