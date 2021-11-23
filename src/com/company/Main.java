@@ -49,10 +49,10 @@ public class Main {
 
         for (int j = 1; j < k; j++){
             for (int i = 0; i < k-1; i++){
-                if (a_Date[i].getTime() > a_Date[i+1].getTime()){
-                    Date x = a_Date[i];
-                    a_Date[i] = a_Date[i+1];
-                    a_Date[i+1] = x;
+                if (find_Date[i].getTime() > find_Date[i+1].getTime()){
+                    Date x = find_Date[i];
+                    find_Date[i] = find_Date[i+1];
+                    find_Date[i+1] = x;
                 }
             }
         }
@@ -64,7 +64,7 @@ public class Main {
 
         DateFormat df = new SimpleDateFormat("HH:mm");
         for (int i = 0;i < k; i++ )
-            System.out.println(df.format(a_Date[i])+" - "+find_Task[i]);
+            System.out.println(df.format(find_Date[i])+" - "+find_Task[i]);
 
         return 1;
     }
