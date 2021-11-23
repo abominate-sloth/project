@@ -95,7 +95,7 @@ public class Main {
 
     static void read(){
         String s;
-        Date day;
+        Date day=new Date(),today= new Date();
         String[] podstr;
 
         try {
@@ -104,17 +104,22 @@ public class Main {
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
 
-            int i;
-            n=Integer.parseInt(s);
+            int i,k;
+            n=0;
+            k=Integer.parseInt(s);
 
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
 
-            for(i=0;i<n;i++)
+            for(i=0;i<k;i++)
             {   s=reader.readLine();
                 podstr = s.split(" +",3);
-                try{day = format.parse(podstr[0]);a_Date[i]=day;}catch (Exception v ){System.out.println(podstr[0]);}
+                try{day = format.parse(podstr[0]);}catch (Exception v ){System.out.println(podstr[0]);}
 
-                a_Task[i]=podstr[2];
+                if(today.getTime()-day.getTime()<24*60*60*1000*2) {
+                    a_Date[n] = day;
+                    a_Task[n] = podstr[2];
+                    n++;
+                }
             }
 
             fr.close();
@@ -130,7 +135,7 @@ public class Main {
 
     static void save(){
         try {
-            File file = new File("D:\\JavaProject\\untitled\\src\\com\\company\\save.txt");
+            File file = new File("src\\com\\company\\save.txt");
             FileWriter fw = new FileWriter(file);
 
             fw.write(Integer.toString(n)+'\n');
