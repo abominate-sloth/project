@@ -11,6 +11,7 @@ public class Main {
     static int n = 0;
     static Date[] a_Date = new Date[101];
     static String[] a_Task = new String[101];
+    static float[][] kurs = new float[4][4];
 
     static void help()
     {
@@ -104,7 +105,7 @@ public class Main {
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
 
-            int i,k;
+            int i,j,k;
             n=0;
             k=Integer.parseInt(s);
 
@@ -122,6 +123,17 @@ public class Main {
                 }
             }
 
+
+            for(i=0;i<4;i++)
+            {
+                s=reader.readLine();
+                podstr = s.split(" +",4);
+
+                for(j=0;j<4;j++)
+                 kurs[i][j]=Float.parseFloat(podstr[j]);
+            }
+
+
             fr.close();
 
         } catch (FileNotFoundException e) {
@@ -135,6 +147,8 @@ public class Main {
 
     static void save(){
         try {
+            int i,j;
+
             File file = new File("src\\com\\company\\save.txt");
             FileWriter fw = new FileWriter(file);
 
@@ -142,8 +156,15 @@ public class Main {
 
             DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
 
-            for (int i = 0;i < n; i++ )
+            for (i = 0;i < n; i++ )
                 fw.write(df.format(a_Date[i])+" - "+a_Task[i]+'\n');
+
+            for(i=0;i<4;i++)
+            {
+                for(j=0;j<4;j++)
+                    fw.write(Float.toString(kurs[i][j])+' ');
+                fw.write('\n');
+            }
 
             fw.close();
         } catch (IOException e) {
