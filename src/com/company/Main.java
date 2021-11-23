@@ -53,10 +53,13 @@ public class Main {
                     Date x = find_Date[i];
                     find_Date[i] = find_Date[i+1];
                     find_Date[i+1] = x;
+                    String y = find_Task[i];
+                    find_Task[i] = find_Task[i+1];
+                    find_Task[i+1] = y;
                 }
             }
         }
-        
+
 
         if(k==0)
             return 2;
