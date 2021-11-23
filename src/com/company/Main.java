@@ -92,7 +92,7 @@ public class Main {
 
     static int convert(String s) {
 
-        return 1;}
+        return -1;}
 
     static void read(){
         String s;
