@@ -37,7 +37,7 @@ public class Main {
     public static int show (Date day) {
         Date[] find_Date = new Date[101];
         String[] find_Task = new String[101];
-        int k = 0;
+        int k = 0, t;
 
         for (int i = 0; i < n; i++) {
             if(a_Date[i].getTime()-day.getTime()<24*60*60*1000 && a_Date[i].getTime()-day.getTime()>=0){
@@ -47,19 +47,21 @@ public class Main {
             }
         }
 
-        for (int j = 1; j < k; j++){
-            for (int i = 0; i < k-1; i++){
-                if (find_Date[i].getTime() > find_Date[i+1].getTime()){
-                    Date x = find_Date[i];
-                    find_Date[i] = find_Date[i+1];
-                    find_Date[i+1] = x;
-                    String y = find_Task[i];
-                    find_Task[i] = find_Task[i+1];
-                    find_Task[i+1] = y;
-                }
-            }
-        }
+        for (int i = 0; i < k-1; i++){
+            t=i;
+            for (int j = i+1; j < k; j++)
+                if (find_Date[t].getTime() > find_Date[j].getTime())
+                    t=j;
 
+            Date od=find_Date[i];
+            find_Date[i]=find_Date[t];
+            find_Date[t]=od;
+
+            String o=find_Task[i];
+            find_Task[i]=find_Task[t];
+            find_Task[t]=o;
+        }
+        
 
         if(k==0)
             return 2;
@@ -97,7 +99,7 @@ public class Main {
         String[] podstr;
 
         try {
-            File file = new File("D:\\JavaProject\\untitled\\src\\com\\company\\save.txt");
+            File file = new File("src\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
