@@ -156,7 +156,7 @@ m1=5;
   	System.out.println(k0+" "+val2);
   }
 }
-
+return 1;
 }
 
     static void read(){
