@@ -17,7 +17,7 @@ public class Main {
     {
         System.out.println("Все команды вводить с маленькой буквы.\n" +
                 "\"просмотреть\" - показывает ве записи на указанный день. Вводить в виде: \"просмотреть день.месяц.год\" (пример: просмотреть 12.12.2020).\n" +
-                "\"конвертировать\" - позволяет производить перевод валют по заданному вами курсу (пример: конвертировать 12,63 BYN в RUB).\n" +
+                "\"конвертировать\" - позволяет производить перевод валют по заданному вами курсу (пример: конвертировать 12.63 BYN в RUB).\n" +
                 "\"добавить\" - позволяет сделать запись на указанный момент времени. Вводить в виде: \"добавить день.месяц.год-часы:минуты задача\" (пример: добавить 12.12.2021-15:15 пойти в гости).\n" +
                 "\"удалить\" - удаляет выбранную запись. Вводить в виде: \"удалить день.месяц.год-часы:минуты\" (пример: удалить 12.12.2021-15:15).\n" +
                 "\"выход\" - сохраняет все изменения и завершает работу.");
@@ -211,8 +211,10 @@ public class Main {
             s = in.nextLine();
             s = ' '+s;
             podstr = s.split(" +",4);
+            podstr[1]=podstr[1].toLowerCase();
 
             switch (podstr[1]) {
+                case "lj,fdbnm":
                 case "добавить":
                     try{
                         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
@@ -232,6 +234,7 @@ public class Main {
 
                     break;
 
+                case "ghjcvjnhtnm":
                 case "просмотреть":
                     try {
                         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -243,9 +246,11 @@ public class Main {
                     } catch (Exception e){System.out.println("Не удалось распознать дату!");}
                     break;
 
+                case "gjvjom":
                 case "помощь": help();
                     break;
 
+                case "elfkbnm":
                 case "удалить":
                     try{
                         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
@@ -263,6 +268,7 @@ public class Main {
 
                     break;
 
+                case "rjydthnbhjdfnm":
                 case "конвертировать":
                     float ch = convert(s);
                     int chek=(int)ch;
@@ -274,6 +280,7 @@ public class Main {
                             break;}
                     break;
 
+                case "ds[jl":
                 case "выход": p = 1;
 
                     save();
