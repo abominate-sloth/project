@@ -5,6 +5,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class Main {
 
@@ -296,5 +301,94 @@ public class Main {
 
 
     }
+	
+    public static void readFromWeb(String webURL) throws IOException {
+        URL url = new URL(webURL);
+        InputStream is =  url.openStream();
+        try( BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            String line;
+            float k1=1, k2=1, k3=1;
+            while ((line = br.readLine()) != null) {
+                int indexMU = line.indexOf("\" selected=\"selected\">USD</option>"); // Нахождение символа в строке
+                int indexME = line.indexOf("\">EUR</option>");
+                int indexMR = line.indexOf("\">RUB</option>");
+                
+              {   if(indexMU == - 1) {
+                } else {
+                   int start = 15;
+                   int end = indexMU;
+                   char[] dst=new char[end - start];
+                   line.getChars(start, end, dst, 0);
+                   String str1 = String.valueOf(dst);                  
+                  // System.out.println(str1);
+                   
+                   try {
+                       Float f1 = Float.valueOf(str1);
+                       k1=f1;
+                       
+                   } catch (NumberFormatException e) {
+                  //     System.err.println("Неверный формат строки!");
+                   }
+                   
 
+                }       
+ 
+              }        
+            
+        
+        {   if(indexME == - 1) {
+           } else {
+              int start2 = 15;
+              int end2 = indexME;
+              char[] dst2=new char[end2 - start2];
+              line.getChars(start2, end2, dst2, 0);
+              String str2 = String.valueOf(dst2);                  
+              
+              try {
+                  Float f2 = Float.valueOf(str2);
+               //   System.out.println(f2);
+                  k2=f2;
+                  
+              } catch (NumberFormatException e) {
+               //   System.err.println("Неверный формат строки!");
+              }
+              } 
+        
+              
+
+        }
+        {   if(indexMR == - 1) {
+        } else {
+           int start3 = 15;
+           int end3 = indexMR;
+           char[] dst3=new char[end3 - start3];
+           line.getChars(start3, end3, dst3, 0);
+           String str3 = String.valueOf(dst3);                  
+           
+           try {
+               Float f3 = Float.valueOf(str3);
+               k3=f3*100;
+               
+           } catch (NumberFormatException e) {
+            //   System.err.println("Неверный формат строки!");
+           }
+           } 
+     
+           
+
+     }
+        }          System.out.println(k1+" USD");
+        System.out.println(k2+" EUR");
+        System.out.println(k3+" RUB");}         }    
+    
+    
+    
+    public static void main2 (String[] args) throws IOException {
+        String url = "https://myfin.by/currency/minsk";
+       
+       readFromWeb(url);
+    }
+    
+    
+    
 }
