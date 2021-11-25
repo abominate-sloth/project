@@ -62,7 +62,7 @@ public class Main {
             find_Task[i]=find_Task[t];
             find_Task[t]=o;
         }
-        
+
 
         if(k==0)
             return 2;
@@ -90,74 +90,31 @@ public class Main {
         return 2;
     }
 
-    static int convert(String s) Scanner in = new Scanner(System.in);
-int chek, g, k,m1, m2, l;
-float kurs, k2, k1, k0, m;
-String val1, val2;
-    String[] words;
-    s=in.nextLine();
-    s=' '+s;
-    words = s.split(" +",7);
-    for (int i = 0; i < words.length; i++) {System.out.println(words[i]+i);
-    }   
-    
-    float[][] twoDimArray = new float[4][4];
-    
-    for (m1 = 0; m1 < 4; m1++) { 
-        for ( m2 = 0; m2 < 4; m2++) {
-       twoDimArray[m1][m2]=1;  }
-}
-    
-String[] v = {"BYN", "RUB", "EUR","USD"};
-m = Float.parseFloat(words[2]);
+    static float convert(String s) {
+        String[] podstr;
+        String[] val={"BYN","RUB","EUR","USD"};
+        int from,to;
+        float mon;
 
-if(words[7]!="") {
-k0 = Float.parseFloat(words[7]);}
-else k0=1;
+        podstr=s.split(" +",6);
 
-for (int i = 0; i < words.length; i++) {System.out.println(words[i]+i);
-}
-val1="o";
-val2="o";
-m2=5;
-m1=5;
+        for(from=0;(from<4)&&!(val[from].equals(podstr[3]));from++);
 
-	for (int i = 0; i < 4; i++) {if(words[3].equals(v[i]))
-        val1=v[i];
-	   m1=i;
-	}
-	 for (int i = 0; i < 4; i++) {if(words[5].equals(v[i]))
-     	val2=v[i];
-	 m2=i;
-     }
+        if(from==4)
+            return -1;
 
-  if(val1.equals("o")&&val2.equals("o"))
-   chek=-1;
-   else {System.out.println(val1+val2);}
-  if(twoDimArray[m1][m2]!=1)
-  twoDimArray[m1][m2] = k0; 
-  //{ System.out.println("Введите курc (пример 12.12) "+val1+" и  "+val2+": k= ");
-//  kurs = in.nextFloat();
-//k1=0;}
-  try {
-      Float f2 = Float.valueOf(words[2]);
-      System.out.println(f2);
-      k1 = f2;
-  } catch (NumberFormatException e) {
-      System.err.println("Неверный формат строки!");
-  }
-  if(val1==val2)
-  {	
-  System.out.println(val1+" "+val1);
-  System.out.println(words[3]+words[3]);} 
-  
-  else {
-	k2 = m * k0;
-  	System.out.println(k0+" "+val2);
-  }
-}
-return 1;
-}
+        for(to=0;(to<4)&&!(val[to].equals(podstr[5]));to++);
+
+        if(to==4)
+            return -2;
+
+        try{
+        mon=Float.parseFloat(podstr[2]);
+        }
+        catch(Exception x){return(-3);}
+
+        return mon*kurs[from][to];
+    }
 
     static void read(){
         String s;
@@ -195,7 +152,7 @@ return 1;
                 podstr = s.split(" +",4);
 
                 for(j=0;j<4;j++)
-                 kurs[i][j]=Float.parseFloat(podstr[j]);
+                    kurs[i][j]=Float.parseFloat(podstr[j]);
             }
 
 
@@ -307,10 +264,14 @@ return 1;
                     break;
 
                 case "конвертировать":
-                    check = convert(s);
-                    if(check == -1)
-                        System.out.println("Формат не совпадает!");
-                    else System.out.println(check);
+                    float ch = convert(s);
+                    int chek=(int)ch;
+                    switch (chek) {
+                        case -1:System.out.println("Исходная валюта не опознана!"); break;
+                        case -2:System.out.println("Итоговая валюта не опознана!"); break;
+                        case -3:System.out.println("Не удалось определить сумму, возможно она написана через ','!"); break;
+                        default:System.out.println(ch);
+                            break;}
                     break;
 
                 case "выход": p = 1;
