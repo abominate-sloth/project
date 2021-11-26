@@ -308,8 +308,9 @@ public class Main {
 
         String url = "https://myfin.by/currency/minsk";
 
-        readFromWeb(url);
-        restore();
+        try{readFromWeb(url);
+        restore();}
+        catch(Exception B){};
 
         while (p == 0) {
 
