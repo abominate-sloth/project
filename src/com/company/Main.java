@@ -17,7 +17,6 @@ public class Main {
     static Date[] a_Date = new Date[101];
     static String[] a_Task = new String[101];
     static float[][] kurs = new float[4][4];
-    static float[] k = new float[4];
 
     static void help() {
         System.out.println("Все команды вводить с маленькой буквы.\n" +
@@ -208,7 +207,7 @@ public class Main {
         InputStream is = url.openStream();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
-            float k1 = 1, k2 = 1, k3 = 1;
+
             while ((line = br.readLine()) != null) {
                 int indexMU = line.indexOf("\" selected=\"selected\">USD</option>"); // Нахождение символа в строке
                 int indexME = line.indexOf("\">EUR</option>");
@@ -225,8 +224,7 @@ public class Main {
                         // System.out.println(str1);
 
                         try {
-                            Float f1 = Float.valueOf(str1);
-                            k1 = f1;
+                            kurs[3][0] = Float.parseFloat(str1);
 
                         } catch (NumberFormatException e) {
                             //     System.err.println("Неверный формат строки!");
@@ -248,9 +246,8 @@ public class Main {
                         String str2 = String.valueOf(dst2);
 
                         try {
-                            Float f2 = Float.valueOf(str2);
+                            kurs[2][0] = Float.parseFloat(str2);
                             //   System.out.println(f2);
-                            k2 = f2;
 
                         } catch (NumberFormatException e) {
                             //   System.err.println("Неверный формат строки!");
@@ -269,8 +266,7 @@ public class Main {
                         String str3 = String.valueOf(dst3);
 
                         try {
-                            Float f3 = Float.valueOf(str3);
-                            k3 = f3 * 100;
+                            kurs[1][0] = Float.parseFloat(str3);
 
                         } catch (NumberFormatException e) {
                             //   System.err.println("Неверный формат строки!");
@@ -280,11 +276,22 @@ public class Main {
 
                 }
             }
-            System.out.println(k1 + " USD");
-            System.out.println(k2 + " EUR");
-            System.out.println(k3 + " RUB");
+
         }
     }
+
+    static void restore()
+    {
+     int i,j;
+
+     for(j=1;j<4;j++)
+         kurs[0][j]=1/kurs[j][0];
+
+     for(i=1;i<4;i++)
+         for(j=1;j<4;j++)
+             kurs[i][j]=1*kurs[i][0]*kurs[0][j];
+
+     }
 
 
     public static void main(String[] args) throws IOException{
@@ -302,7 +309,7 @@ public class Main {
         String url = "https://myfin.by/currency/minsk";
 
         readFromWeb(url);
-
+        restore();
 
         while (p == 0) {
 
