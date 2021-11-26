@@ -17,7 +17,7 @@ public class Main {
     static Date[] a_Date = new Date[101];
     static String[] a_Task = new String[101];
     static float[][] kurs = new float[4][4];
-
+    static float[] k = new float[4]; 
     static void help()
     {
         System.out.println("Все команды вводить с маленькой буквы.\n" +
