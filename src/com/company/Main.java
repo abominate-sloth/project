@@ -269,7 +269,7 @@ public class Main {
                             kurs[1][0] = Float.parseFloat(str3);
 
                         } catch (NumberFormatException e) {
-                            //   System.err.println("Неверный формат строки!");
+                       //     
                         }
                     }
 
