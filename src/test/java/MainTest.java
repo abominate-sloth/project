@@ -45,10 +45,14 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     void read() {
+        Main obj5 = new Main();
+        obj5.save();
     }
 
     @org.junit.jupiter.api.Test
     void save() {
+        Main obj4 = new Main();
+        obj4.save();
     }
 
     @org.junit.jupiter.api.Test

@@ -177,7 +177,7 @@ public class Main {
     }
 
 
-    static void save() {
+    public static void save() {
         try {
             int i, j;
 
