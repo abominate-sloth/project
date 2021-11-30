@@ -129,7 +129,7 @@ public class Main {
         String[] podstr;
 
         try {
-            File file = new File("D:\\project\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
@@ -181,7 +181,7 @@ public class Main {
         try {
             int i, j;
 
-            File file = new File("D:\\project\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
             FileWriter fw = new FileWriter(file);
 
             fw.write(Integer.toString(n) + '\n');

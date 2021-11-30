@@ -24,7 +24,13 @@ class MainTest {
     }
 
     @org.junit.jupiter.api.Test
-    void show() {
+    void show() throws ParseException {
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+        Date day = format.parse("12.08.2022-12:43");
+        Main obj2 = new Main();
+        obj2.show(day);
+        assertEquals(day, obj2.a_Date[0] );
+
     }
 
     @org.junit.jupiter.api.Test

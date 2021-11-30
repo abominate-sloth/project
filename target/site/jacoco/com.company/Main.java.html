@@ -12,224 +12,225 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 <span class="fc" id="L14">public class Main {</span>
+<span class="fc" id="L15">    public static Date[] find_Date = new Date[101];</span>
+<span class="fc" id="L16">    public static String[] find_Task = new String[101];</span>
+<span class="fc" id="L17">    public static int n = 0, k = 0;</span>
+<span class="fc" id="L18">    public static Date[] a_Date = new Date[101];</span>
+<span class="fc" id="L19">    public static String[] a_Task = new String[101];</span>
+<span class="fc" id="L20">    static float[][] kurs = new float[4][4];</span>
 
-<span class="fc" id="L16">    public static int n = 0;</span>
-<span class="fc" id="L17">    public static Date[] a_Date = new Date[101];</span>
-<span class="fc" id="L18">    public static String[] a_Task = new String[101];</span>
-<span class="fc" id="L19">    static float[][] kurs = new float[4][4];</span>
 
     public static void help() {
-<span class="fc" id="L22">        System.out.println(&quot;Все команды вводить с маленькой буквы.\n&quot; +</span>
+<span class="fc" id="L24">        System.out.println(&quot;Все команды вводить с маленькой буквы.\n&quot; +</span>
                 &quot;\&quot;просмотреть\&quot; - показывает ве записи на указанный день. Вводить в виде: \&quot;просмотреть день.месяц.год\&quot; (пример: просмотреть 12.12.2021).\n&quot; +
                 &quot;\&quot;конвертировать\&quot; - позволяет производить перевод валют по заданному вами курсу (пример: конвертировать 12.63 BYN в RUB).\n&quot; +
                 &quot;\&quot;добавить\&quot; - позволяет сделать запись на указанный момент времени. Вводить в виде: \&quot;добавить день.месяц.год-часы:минуты задача\&quot; (пример: добавить 12.12.2021-15:15 пойти в гости).\n&quot; +
                 &quot;\&quot;удалить\&quot; - удаляет выбранную запись. Вводить в виде: \&quot;удалить день.месяц.год-часы:минуты\&quot; (пример: удалить 12.12.2021-15:15).\n&quot; +
                 &quot;\&quot;выход\&quot; - сохраняет все изменения и завершает работу.&quot;);
 
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L31">    }</span>
 
     public static int add(Date day, String task) {
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        for (int i = 0; i &lt; n; i++)</span>
-<span class="nc bnc" id="L33" title="All 4 branches missed.">            if ((a_Date[i].equals(day)) &amp;&amp; (a_Task[i].equals(task)))</span>
-<span class="nc" id="L34">                return 2;</span>
-<span class="fc" id="L35">        a_Date[n] = day;</span>
-<span class="fc" id="L36">        a_Task[n] = task;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        for (int i = 0; i &lt; n; i++)</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">            if ((a_Date[i].equals(day)) &amp;&amp; (a_Task[i].equals(task)))</span>
+<span class="nc" id="L36">                return 2;</span>
+<span class="fc" id="L37">        a_Date[n] = day;</span>
+<span class="fc" id="L38">        a_Task[n] = task;</span>
 
-<span class="fc" id="L38">        n++;</span>
-<span class="fc" id="L39">        return 1;</span>
+<span class="fc" id="L40">        n++;</span>
+<span class="fc" id="L41">        return 1;</span>
     }
 
     public static int show(Date day) {
-<span class="nc" id="L43">        Date[] find_Date = new Date[101];</span>
-<span class="nc" id="L44">        String[] find_Task = new String[101];</span>
-<span class="nc" id="L45">        int k = 0, t;</span>
 
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="nc bnc" id="L48" title="All 4 branches missed.">            if (a_Date[i].getTime() - day.getTime() &lt; 24 * 60 * 60 * 1000 &amp;&amp; a_Date[i].getTime() - day.getTime() &gt;= 0) {</span>
-<span class="nc" id="L49">                find_Date[k] = a_Date[i];</span>
-<span class="nc" id="L50">                find_Task[k] = a_Task[i];</span>
-<span class="nc" id="L51">                k++;</span>
+        int t;
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="pc bpc" id="L49" title="2 of 4 branches missed.">            if (a_Date[i].getTime() - day.getTime() &lt; 24 * 60 * 60 * 1000 &amp;&amp; a_Date[i].getTime() - day.getTime() &gt;= 0) {</span>
+<span class="fc" id="L50">                find_Date[k] = a_Date[i];</span>
+<span class="fc" id="L51">                find_Task[k] = a_Task[i];</span>
+<span class="fc" id="L52">                k++;</span>
             }
         }
 
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        for (int i = 0; i &lt; k - 1; i++) {</span>
-<span class="nc" id="L56">            t = i;</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">            for (int j = i + 1; j &lt; k; j++)</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (find_Date[t].getTime() &gt; find_Date[j].getTime())</span>
-<span class="nc" id="L59">                    t = j;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        for (int i = 0; i &lt; k - 1; i++) {</span>
+<span class="nc" id="L57">            t = i;</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">            for (int j = i + 1; j &lt; k; j++)</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                if (find_Date[t].getTime() &gt; find_Date[j].getTime())</span>
+<span class="nc" id="L60">                    t = j;</span>
 
-<span class="nc" id="L61">            Date od = find_Date[i];</span>
-<span class="nc" id="L62">            find_Date[i] = find_Date[t];</span>
-<span class="nc" id="L63">            find_Date[t] = od;</span>
+<span class="nc" id="L62">            Date od = find_Date[i];</span>
+<span class="nc" id="L63">            find_Date[i] = find_Date[t];</span>
+<span class="nc" id="L64">            find_Date[t] = od;</span>
 
-<span class="nc" id="L65">            String o = find_Task[i];</span>
-<span class="nc" id="L66">            find_Task[i] = find_Task[t];</span>
-<span class="nc" id="L67">            find_Task[t] = o;</span>
+<span class="nc" id="L66">            String o = find_Task[i];</span>
+<span class="nc" id="L67">            find_Task[i] = find_Task[t];</span>
+<span class="nc" id="L68">            find_Task[t] = o;</span>
         }
 
 
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (k == 0)</span>
-<span class="nc" id="L72">            return 2;</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (k == 0)</span>
+<span class="nc" id="L73">            return 2;</span>
 
 
-<span class="nc" id="L75">        DateFormat df = new SimpleDateFormat(&quot;HH:mm&quot;);</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (int i = 0; i &lt; k; i++)</span>
-<span class="nc" id="L77">            System.out.println(df.format(find_Date[i]) + &quot; - &quot; + find_Task[i]);</span>
+<span class="fc" id="L76">        DateFormat df = new SimpleDateFormat(&quot;HH:mm&quot;);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (int i = 0; i &lt; k; i++)</span>
+<span class="fc" id="L78">            System.out.println(df.format(find_Date[i]) + &quot; - &quot; + find_Task[i]);</span>
 
-<span class="nc" id="L79">        return 1;</span>
+<span class="fc" id="L80">        return 1;</span>
     }
 
     static int delete(Date day) {
         int i;
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (n == 0)</span>
-<span class="nc" id="L86">            return 2;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (n == 0)</span>
+<span class="nc" id="L87">            return 2;</span>
 
-<span class="nc bnc" id="L88" title="All 4 branches missed.">        for (i = 0; (i &lt; n - 1) &amp;&amp; (!a_Date[i].equals(day)); i++) ;</span>
+<span class="nc bnc" id="L89" title="All 4 branches missed.">        for (i = 0; (i &lt; n - 1) &amp;&amp; (!a_Date[i].equals(day)); i++) ;</span>
 
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (a_Date[i].equals(day)) {</span>
-<span class="nc" id="L91">            a_Date[i] = a_Date[n - 1];</span>
-<span class="nc" id="L92">            n--;</span>
-<span class="nc" id="L93">            return 1;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (a_Date[i].equals(day)) {</span>
+<span class="nc" id="L92">            a_Date[i] = a_Date[n - 1];</span>
+<span class="nc" id="L93">            n--;</span>
+<span class="nc" id="L94">            return 1;</span>
         }
 
-<span class="nc" id="L96">        return 2;</span>
+<span class="nc" id="L97">        return 2;</span>
     }
 
     public static float convert(String s) {
         String[] podstr;
-<span class="nc" id="L101">        String[] val = {&quot;BYN&quot;, &quot;RUB&quot;, &quot;EUR&quot;, &quot;USD&quot;};</span>
+<span class="nc" id="L102">        String[] val = {&quot;BYN&quot;, &quot;RUB&quot;, &quot;EUR&quot;, &quot;USD&quot;};</span>
         int from, to;
         float mon;
 
-<span class="nc" id="L105">        podstr = s.split(&quot; +&quot;, 6);</span>
+<span class="nc" id="L106">        podstr = s.split(&quot; +&quot;, 6);</span>
 
-<span class="nc bnc" id="L107" title="All 4 branches missed.">        for (from = 0; (from &lt; 4) &amp;&amp; !(val[from].equals(podstr[3])); from++) ;</span>
+<span class="nc bnc" id="L108" title="All 4 branches missed.">        for (from = 0; (from &lt; 4) &amp;&amp; !(val[from].equals(podstr[3])); from++) ;</span>
 
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (from == 4)</span>
-<span class="nc" id="L110">            return -1;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (from == 4)</span>
+<span class="nc" id="L111">            return -1;</span>
 
-<span class="nc bnc" id="L112" title="All 4 branches missed.">        for (to = 0; (to &lt; 4) &amp;&amp; !(val[to].equals(podstr[5])); to++) ;</span>
+<span class="nc bnc" id="L113" title="All 4 branches missed.">        for (to = 0; (to &lt; 4) &amp;&amp; !(val[to].equals(podstr[5])); to++) ;</span>
 
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        if (to == 4)</span>
-<span class="nc" id="L115">            return -2;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (to == 4)</span>
+<span class="nc" id="L116">            return -2;</span>
 
         try {
-<span class="nc" id="L118">            mon = Float.parseFloat(podstr[2]);</span>
-<span class="nc" id="L119">        } catch (Exception x) {</span>
-<span class="nc" id="L120">            return (-3);</span>
-<span class="nc" id="L121">        }</span>
+<span class="nc" id="L119">            mon = Float.parseFloat(podstr[2]);</span>
+<span class="nc" id="L120">        } catch (Exception x) {</span>
+<span class="nc" id="L121">            return (-3);</span>
+<span class="nc" id="L122">        }</span>
 
-<span class="nc" id="L123">        return mon * kurs[from][to];</span>
+<span class="nc" id="L124">        return mon * kurs[from][to];</span>
     }
 
     static void read() {
         String s;
-<span class="nc" id="L128">        Date day = new Date(), today = new Date();</span>
+<span class="nc" id="L129">        Date day = new Date(), today = new Date();</span>
         String[] podstr;
 
         try {
-<span class="nc" id="L132">            File file = new File(&quot;D:\\project\\src\\main\\java\\com\\company\\save.txt&quot;);</span>
-<span class="nc" id="L133">            FileReader fr = new FileReader(file);</span>
-<span class="nc" id="L134">            BufferedReader reader = new BufferedReader(fr);</span>
-<span class="nc" id="L135">            s = reader.readLine();</span>
+<span class="nc" id="L133">            File file = new File(&quot;D:\\project\\src\\main\\java\\com\\company\\save.txt&quot;);</span>
+<span class="nc" id="L134">            FileReader fr = new FileReader(file);</span>
+<span class="nc" id="L135">            BufferedReader reader = new BufferedReader(fr);</span>
+<span class="nc" id="L136">            s = reader.readLine();</span>
 
             int i, j, k;
-<span class="nc" id="L138">            n = 0;</span>
-<span class="nc" id="L139">            k = Integer.parseInt(s);</span>
+<span class="nc" id="L139">            n = 0;</span>
+<span class="nc" id="L140">            k = Integer.parseInt(s);</span>
 
-<span class="nc" id="L141">            DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
+<span class="nc" id="L142">            DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
 
-<span class="nc bnc" id="L143" title="All 2 branches missed.">            for (i = 0; i &lt; k; i++) {</span>
-<span class="nc" id="L144">                s = reader.readLine();</span>
-<span class="nc" id="L145">                podstr = s.split(&quot; +&quot;, 3);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            for (i = 0; i &lt; k; i++) {</span>
+<span class="nc" id="L145">                s = reader.readLine();</span>
+<span class="nc" id="L146">                podstr = s.split(&quot; +&quot;, 3);</span>
                 try {
-<span class="nc" id="L147">                    day = format.parse(podstr[0]);</span>
-<span class="nc" id="L148">                } catch (Exception v) {</span>
-<span class="nc" id="L149">                    System.out.println(podstr[0]);</span>
-<span class="nc" id="L150">                }</span>
+<span class="nc" id="L148">                    day = format.parse(podstr[0]);</span>
+<span class="nc" id="L149">                } catch (Exception v) {</span>
+<span class="nc" id="L150">                    System.out.println(podstr[0]);</span>
+<span class="nc" id="L151">                }</span>
 
-<span class="nc bnc" id="L152" title="All 2 branches missed.">                if (today.getTime() - day.getTime() &lt; 24 * 60 * 60 * 1000 * 2) {</span>
-<span class="nc" id="L153">                    a_Date[n] = day;</span>
-<span class="nc" id="L154">                    a_Task[n] = podstr[2];</span>
-<span class="nc" id="L155">                    n++;</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                if (today.getTime() - day.getTime() &lt; 24 * 60 * 60 * 1000 * 2) {</span>
+<span class="nc" id="L154">                    a_Date[n] = day;</span>
+<span class="nc" id="L155">                    a_Task[n] = podstr[2];</span>
+<span class="nc" id="L156">                    n++;</span>
                 }
             }
 
 
-<span class="nc bnc" id="L160" title="All 2 branches missed.">            for (i = 0; i &lt; 4; i++) {</span>
-<span class="nc" id="L161">                s = reader.readLine();</span>
-<span class="nc" id="L162">                podstr = s.split(&quot; +&quot;, 4);</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">            for (i = 0; i &lt; 4; i++) {</span>
+<span class="nc" id="L162">                s = reader.readLine();</span>
+<span class="nc" id="L163">                podstr = s.split(&quot; +&quot;, 4);</span>
 
-<span class="nc bnc" id="L164" title="All 2 branches missed.">                for (j = 0; j &lt; 4; j++)</span>
-<span class="nc" id="L165">                    kurs[i][j] = Float.parseFloat(podstr[j]);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                for (j = 0; j &lt; 4; j++)</span>
+<span class="nc" id="L166">                    kurs[i][j] = Float.parseFloat(podstr[j]);</span>
             }
 
 
-<span class="nc" id="L169">            fr.close();</span>
+<span class="nc" id="L170">            fr.close();</span>
 
-<span class="nc" id="L171">        } catch (FileNotFoundException e) {</span>
-<span class="nc" id="L172">            e.printStackTrace();</span>
-<span class="nc" id="L173">        } catch (IOException e) {</span>
-<span class="nc" id="L174">            e.printStackTrace();</span>
-<span class="nc" id="L175">        }</span>
+<span class="nc" id="L172">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L173">            e.printStackTrace();</span>
+<span class="nc" id="L174">        } catch (IOException e) {</span>
+<span class="nc" id="L175">            e.printStackTrace();</span>
+<span class="nc" id="L176">        }</span>
 
-<span class="nc" id="L177">    }</span>
+<span class="nc" id="L178">    }</span>
 
 
     static void save() {
         try {
             int i, j;
 
-<span class="nc" id="L184">            File file = new File(&quot;D:\\project\\src\\main\\java\\com\\company\\save.txt&quot;);</span>
-<span class="nc" id="L185">            FileWriter fw = new FileWriter(file);</span>
+<span class="nc" id="L185">            File file = new File(&quot;D:\\project\\src\\main\\java\\com\\company\\save.txt&quot;);</span>
+<span class="nc" id="L186">            FileWriter fw = new FileWriter(file);</span>
 
-<span class="nc" id="L187">            fw.write(Integer.toString(n) + '\n');</span>
+<span class="nc" id="L188">            fw.write(Integer.toString(n) + '\n');</span>
 
-<span class="nc" id="L189">            DateFormat df = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
+<span class="nc" id="L190">            DateFormat df = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
 
-<span class="nc bnc" id="L191" title="All 2 branches missed.">            for (i = 0; i &lt; n; i++)</span>
-<span class="nc" id="L192">                fw.write(df.format(a_Date[i]) + &quot; - &quot; + a_Task[i] + '\n');</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">            for (i = 0; i &lt; n; i++)</span>
+<span class="nc" id="L193">                fw.write(df.format(a_Date[i]) + &quot; - &quot; + a_Task[i] + '\n');</span>
 
-<span class="nc bnc" id="L194" title="All 2 branches missed.">            for (i = 0; i &lt; 4; i++) {</span>
-<span class="nc bnc" id="L195" title="All 2 branches missed.">                for (j = 0; j &lt; 4; j++)</span>
-<span class="nc" id="L196">                    fw.write(Float.toString(kurs[i][j]) + ' ');</span>
-<span class="nc" id="L197">                fw.write('\n');</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            for (i = 0; i &lt; 4; i++) {</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">                for (j = 0; j &lt; 4; j++)</span>
+<span class="nc" id="L197">                    fw.write(Float.toString(kurs[i][j]) + ' ');</span>
+<span class="nc" id="L198">                fw.write('\n');</span>
             }
 
-<span class="nc" id="L200">            fw.close();</span>
-<span class="nc" id="L201">        } catch (IOException e) {</span>
+<span class="nc" id="L201">            fw.close();</span>
+<span class="nc" id="L202">        } catch (IOException e) {</span>
 
-<span class="nc" id="L203">        }</span>
-<span class="nc" id="L204">    }</span>
+<span class="nc" id="L204">        }</span>
+<span class="nc" id="L205">    }</span>
 
     static void readFromWeb(String webURL) throws IOException {
-<span class="nc" id="L207">        URL url = new URL(webURL);</span>
-<span class="nc" id="L208">        InputStream is = url.openStream();</span>
-<span class="nc" id="L209">        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {</span>
+<span class="nc" id="L208">        URL url = new URL(webURL);</span>
+<span class="nc" id="L209">        InputStream is = url.openStream();</span>
+<span class="nc" id="L210">        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {</span>
             String line;
 
-<span class="nc bnc" id="L212" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
-<span class="nc" id="L213">                int indexMU = line.indexOf(&quot;\&quot; selected=\&quot;selected\&quot;&gt;USD&lt;/option&gt;&quot;); // Нахождение символа в строке</span>
-<span class="nc" id="L214">                int indexME = line.indexOf(&quot;\&quot;&gt;EUR&lt;/option&gt;&quot;);</span>
-<span class="nc" id="L215">                int indexMR = line.indexOf(&quot;\&quot;&gt;RUB&lt;/option&gt;&quot;);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
+<span class="nc" id="L214">                int indexMU = line.indexOf(&quot;\&quot; selected=\&quot;selected\&quot;&gt;USD&lt;/option&gt;&quot;); // Нахождение символа в строке</span>
+<span class="nc" id="L215">                int indexME = line.indexOf(&quot;\&quot;&gt;EUR&lt;/option&gt;&quot;);</span>
+<span class="nc" id="L216">                int indexMR = line.indexOf(&quot;\&quot;&gt;RUB&lt;/option&gt;&quot;);</span>
 
                 {
-<span class="nc bnc" id="L218" title="All 2 branches missed.">                    if (indexMU == -1) {</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">                    if (indexMU == -1) {</span>
                     } else {
-<span class="nc" id="L220">                        int start = 15;</span>
-<span class="nc" id="L221">                        int end = indexMU;</span>
-<span class="nc" id="L222">                        char[] dst = new char[end - start];</span>
-<span class="nc" id="L223">                        line.getChars(start, end, dst, 0);</span>
-<span class="nc" id="L224">                        String str1 = String.valueOf(dst);</span>
+<span class="nc" id="L221">                        int start = 15;</span>
+<span class="nc" id="L222">                        int end = indexMU;</span>
+<span class="nc" id="L223">                        char[] dst = new char[end - start];</span>
+<span class="nc" id="L224">                        line.getChars(start, end, dst, 0);</span>
+<span class="nc" id="L225">                        String str1 = String.valueOf(dst);</span>
                         // System.out.println(str1);
 
                         try {
-<span class="nc" id="L228">                            kurs[3][0] = Float.parseFloat(str1);</span>
+<span class="nc" id="L229">                            kurs[3][0] = Float.parseFloat(str1);</span>
 
-<span class="nc" id="L230">                        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L231">                        } catch (NumberFormatException e) {</span>
                             //     System.err.println(&quot;Неверный формат строки!&quot;);
-<span class="nc" id="L232">                        }</span>
+<span class="nc" id="L233">                        }</span>
 
 
                     }
@@ -238,183 +239,183 @@ import java.net.URL;
 
 
                 {
-<span class="nc bnc" id="L241" title="All 2 branches missed.">                    if (indexME == -1) {</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">                    if (indexME == -1) {</span>
                     } else {
-<span class="nc" id="L243">                        int start2 = 15;</span>
-<span class="nc" id="L244">                        int end2 = indexME;</span>
-<span class="nc" id="L245">                        char[] dst2 = new char[end2 - start2];</span>
-<span class="nc" id="L246">                        line.getChars(start2, end2, dst2, 0);</span>
-<span class="nc" id="L247">                        String str2 = String.valueOf(dst2);</span>
+<span class="nc" id="L244">                        int start2 = 15;</span>
+<span class="nc" id="L245">                        int end2 = indexME;</span>
+<span class="nc" id="L246">                        char[] dst2 = new char[end2 - start2];</span>
+<span class="nc" id="L247">                        line.getChars(start2, end2, dst2, 0);</span>
+<span class="nc" id="L248">                        String str2 = String.valueOf(dst2);</span>
 
                         try {
-<span class="nc" id="L250">                            kurs[2][0] = Float.parseFloat(str2);</span>
+<span class="nc" id="L251">                            kurs[2][0] = Float.parseFloat(str2);</span>
                             //   System.out.println(f2);
 
-<span class="nc" id="L253">                        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L254">                        } catch (NumberFormatException e) {</span>
                             //   System.err.println(&quot;Неверный формат строки!&quot;);
-<span class="nc" id="L255">                        }</span>
+<span class="nc" id="L256">                        }</span>
                     }
 
 
                 }
                 {
-<span class="nc bnc" id="L261" title="All 2 branches missed.">                    if (indexMR == -1) {</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">                    if (indexMR == -1) {</span>
                     } else {
-<span class="nc" id="L263">                        int start3 = 15;</span>
-<span class="nc" id="L264">                        int end3 = indexMR;</span>
-<span class="nc" id="L265">                        char[] dst3 = new char[end3 - start3];</span>
-<span class="nc" id="L266">                        line.getChars(start3, end3, dst3, 0);</span>
-<span class="nc" id="L267">                        String str3 = String.valueOf(dst3);</span>
+<span class="nc" id="L264">                        int start3 = 15;</span>
+<span class="nc" id="L265">                        int end3 = indexMR;</span>
+<span class="nc" id="L266">                        char[] dst3 = new char[end3 - start3];</span>
+<span class="nc" id="L267">                        line.getChars(start3, end3, dst3, 0);</span>
+<span class="nc" id="L268">                        String str3 = String.valueOf(dst3);</span>
 
                         try {
-<span class="nc" id="L270">                            kurs[1][0] = Float.parseFloat(str3);</span>
+<span class="nc" id="L271">                            kurs[1][0] = Float.parseFloat(str3);</span>
 
-<span class="nc" id="L272">                        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L273">                        } catch (NumberFormatException e) {</span>
                             //
-<span class="nc" id="L274">                        }</span>
+<span class="nc" id="L275">                        }</span>
                     }
 
 
                 }
-<span class="nc" id="L279">            }</span>
+<span class="nc" id="L280">            }</span>
 
         }
-<span class="nc" id="L282">    }</span>
+<span class="nc" id="L283">    }</span>
 
     static void restore()
     {
         int i,j;
 
-<span class="nc bnc" id="L288" title="All 2 branches missed.">        for(j=1;j&lt;4;j++)</span>
-<span class="nc" id="L289">            kurs[0][j]=1/kurs[j][0];</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">        for(j=1;j&lt;4;j++)</span>
+<span class="nc" id="L290">            kurs[0][j]=1/kurs[j][0];</span>
 
-<span class="nc bnc" id="L291" title="All 2 branches missed.">        for(i=1;i&lt;4;i++)</span>
-<span class="nc bnc" id="L292" title="All 2 branches missed.">            for(j=1;j&lt;4;j++)</span>
-<span class="nc" id="L293">                kurs[i][j]=1*kurs[i][0]*kurs[0][j];</span>
+<span class="nc bnc" id="L292" title="All 2 branches missed.">        for(i=1;i&lt;4;i++)</span>
+<span class="nc bnc" id="L293" title="All 2 branches missed.">            for(j=1;j&lt;4;j++)</span>
+<span class="nc" id="L294">                kurs[i][j]=1*kurs[i][0]*kurs[0][j];</span>
 
-<span class="nc" id="L295">    }</span>
+<span class="nc" id="L296">    }</span>
 
 
     public static void main(String[] args) throws IOException{
-<span class="nc" id="L299">        System.out.println(&quot;Чтобы ознакомиться с инструкциями введите \&quot;помощь\&quot;.&quot;);</span>
+<span class="nc" id="L300">        System.out.println(&quot;Чтобы ознакомиться с инструкциями введите \&quot;помощь\&quot;.&quot;);</span>
 
-<span class="nc" id="L301">        int p = 0, check;</span>
+<span class="nc" id="L302">        int p = 0, check;</span>
         Date day;
         String s;
         String[] podstr;
 
-<span class="nc" id="L306">        Scanner in = new Scanner(System.in);</span>
+<span class="nc" id="L307">        Scanner in = new Scanner(System.in);</span>
 
-<span class="nc" id="L308">        read();</span>
+<span class="nc" id="L309">        read();</span>
 
-<span class="nc" id="L310">        String url = &quot;https://myfin.by/currency/minsk&quot;;</span>
+<span class="nc" id="L311">        String url = &quot;https://myfin.by/currency/minsk&quot;;</span>
 
-<span class="nc" id="L312">        try{readFromWeb(url);</span>
-<span class="nc" id="L313">            restore();}</span>
-<span class="nc" id="L314">        catch(Exception B){};</span>
+<span class="nc" id="L313">        try{readFromWeb(url);</span>
+<span class="nc" id="L314">            restore();}</span>
+<span class="nc" id="L315">        catch(Exception B){};</span>
 
-<span class="nc bnc" id="L316" title="All 2 branches missed.">        while (p == 0) {</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        while (p == 0) {</span>
 
-<span class="nc" id="L318">            s = in.nextLine();</span>
-<span class="nc" id="L319">            s = ' ' + s;</span>
-<span class="nc" id="L320">            podstr = s.split(&quot; +&quot;, 4);</span>
-<span class="nc" id="L321">            podstr[1] = podstr[1].toLowerCase();</span>
+<span class="nc" id="L319">            s = in.nextLine();</span>
+<span class="nc" id="L320">            s = ' ' + s;</span>
+<span class="nc" id="L321">            podstr = s.split(&quot; +&quot;, 4);</span>
+<span class="nc" id="L322">            podstr[1] = podstr[1].toLowerCase();</span>
 
-<span class="nc bnc" id="L323" title="All 7 branches missed.">            switch (podstr[1]) {</span>
+<span class="nc bnc" id="L324" title="All 7 branches missed.">            switch (podstr[1]) {</span>
                 case &quot;lj,fdbnm&quot;:
                 case &quot;добавить&quot;:
                     try {
-<span class="nc" id="L327">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
-<span class="nc" id="L328">                        day = format.parse(podstr[2]);</span>
+<span class="nc" id="L328">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
+<span class="nc" id="L329">                        day = format.parse(podstr[2]);</span>
 
-<span class="nc" id="L330">                        check = add(day, podstr[3]);</span>
+<span class="nc" id="L331">                        check = add(day, podstr[3]);</span>
 
-<span class="nc bnc" id="L332" title="All 2 branches missed.">                        if (check == 2)</span>
-<span class="nc" id="L333">                            System.out.println(&quot;Такая запись уже есть!&quot;);</span>
-<span class="nc" id="L334">                        else System.out.println(&quot;Успешно добавлено!&quot;);</span>
+<span class="nc bnc" id="L333" title="All 2 branches missed.">                        if (check == 2)</span>
+<span class="nc" id="L334">                            System.out.println(&quot;Такая запись уже есть!&quot;);</span>
+<span class="nc" id="L335">                        else System.out.println(&quot;Успешно добавлено!&quot;);</span>
 
-<span class="nc" id="L336">                    } catch (Exception x) {</span>
-<span class="nc" id="L337">                        System.out.println(&quot;Не удалось распознать дату либо отсуствует задача!&quot;);</span>
-<span class="nc" id="L338">                    }</span>
+<span class="nc" id="L337">                    } catch (Exception x) {</span>
+<span class="nc" id="L338">                        System.out.println(&quot;Не удалось распознать дату либо отсуствует задача!&quot;);</span>
+<span class="nc" id="L339">                    }</span>
 
-<span class="nc" id="L340">                    save();</span>
+<span class="nc" id="L341">                    save();</span>
 
-<span class="nc" id="L342">                    break;</span>
+<span class="nc" id="L343">                    break;</span>
 
                 case &quot;ghjcvjnhtnm&quot;:
                 case &quot;просмотреть&quot;:
                     try {
-<span class="nc" id="L347">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy&quot;);</span>
-<span class="nc" id="L348">                        day = format.parse(podstr[2]);</span>
-<span class="nc" id="L349">                        check = show(day);</span>
-<span class="nc bnc" id="L350" title="All 2 branches missed.">                        if (check == 2)</span>
-<span class="nc" id="L351">                            System.out.println(&quot;Ничего не найдено!&quot;);</span>
+<span class="nc" id="L348">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy&quot;);</span>
+<span class="nc" id="L349">                        day = format.parse(podstr[2]);</span>
+<span class="nc" id="L350">                        check = show(day);</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">                        if (check == 2)</span>
+<span class="nc" id="L352">                            System.out.println(&quot;Ничего не найдено!&quot;);</span>
 
-<span class="nc" id="L353">                    } catch (Exception e) {</span>
-<span class="nc" id="L354">                        System.out.println(&quot;Не удалось распознать дату!&quot;);</span>
-<span class="nc" id="L355">                    }</span>
-<span class="nc" id="L356">                    break;</span>
+<span class="nc" id="L354">                    } catch (Exception e) {</span>
+<span class="nc" id="L355">                        System.out.println(&quot;Не удалось распознать дату!&quot;);</span>
+<span class="nc" id="L356">                    }</span>
+<span class="nc" id="L357">                    break;</span>
 
                 case &quot;gjvjom&quot;:
                 case &quot;помощь&quot;:
-<span class="nc" id="L360">                    help();</span>
-<span class="nc" id="L361">                    break;</span>
+<span class="nc" id="L361">                    help();</span>
+<span class="nc" id="L362">                    break;</span>
 
                 case &quot;elfkbnm&quot;:
                 case &quot;удалить&quot;:
                     try {
-<span class="nc" id="L366">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
-<span class="nc" id="L367">                        day = format.parse(podstr[2]);</span>
+<span class="nc" id="L367">                        DateFormat format = new SimpleDateFormat(&quot;dd.MM.yyyy-HH:mm&quot;);</span>
+<span class="nc" id="L368">                        day = format.parse(podstr[2]);</span>
 
-<span class="nc" id="L369">                        check = delete(day);</span>
-<span class="nc bnc" id="L370" title="All 2 branches missed.">                        if (check == 2)</span>
-<span class="nc" id="L371">                            System.out.println(&quot;То,что можно было удалить, не найдено!&quot;);</span>
-<span class="nc" id="L372">                        else System.out.println(&quot;Удалено успешно!&quot;);</span>
-<span class="nc" id="L373">                    } catch (Exception x) {</span>
-<span class="nc" id="L374">                        System.out.println(&quot;Не удалось распознать дату!&quot;);</span>
-<span class="nc" id="L375">                    }</span>
+<span class="nc" id="L370">                        check = delete(day);</span>
+<span class="nc bnc" id="L371" title="All 2 branches missed.">                        if (check == 2)</span>
+<span class="nc" id="L372">                            System.out.println(&quot;То,что можно было удалить, не найдено!&quot;);</span>
+<span class="nc" id="L373">                        else System.out.println(&quot;Удалено успешно!&quot;);</span>
+<span class="nc" id="L374">                    } catch (Exception x) {</span>
+<span class="nc" id="L375">                        System.out.println(&quot;Не удалось распознать дату!&quot;);</span>
+<span class="nc" id="L376">                    }</span>
 
-<span class="nc" id="L377">                    save();</span>
+<span class="nc" id="L378">                    save();</span>
 
-<span class="nc" id="L379">                    break;</span>
+<span class="nc" id="L380">                    break;</span>
 
                 case &quot;rjydthnbhjdfnm&quot;:
                 case &quot;конвертировать&quot;:
-<span class="nc" id="L383">                    float ch = convert(s);</span>
-<span class="nc" id="L384">                    int chek = (int) ch;</span>
-<span class="nc bnc" id="L385" title="All 4 branches missed.">                    switch (chek) {</span>
+<span class="nc" id="L384">                    float ch = convert(s);</span>
+<span class="nc" id="L385">                    int chek = (int) ch;</span>
+<span class="nc bnc" id="L386" title="All 4 branches missed.">                    switch (chek) {</span>
                         case -1:
-<span class="nc" id="L387">                            System.out.println(&quot;Исходная валюта не опознана!&quot;);</span>
-<span class="nc" id="L388">                            break;</span>
+<span class="nc" id="L388">                            System.out.println(&quot;Исходная валюта не опознана!&quot;);</span>
+<span class="nc" id="L389">                            break;</span>
                         case -2:
-<span class="nc" id="L390">                            System.out.println(&quot;Итоговая валюта не опознана!&quot;);</span>
-<span class="nc" id="L391">                            break;</span>
+<span class="nc" id="L391">                            System.out.println(&quot;Итоговая валюта не опознана!&quot;);</span>
+<span class="nc" id="L392">                            break;</span>
                         case -3:
-<span class="nc" id="L393">                            System.out.println(&quot;Не удалось определить сумму, возможно она написана через ','!&quot;);</span>
-<span class="nc" id="L394">                            break;</span>
+<span class="nc" id="L394">                            System.out.println(&quot;Не удалось определить сумму, возможно она написана через ','!&quot;);</span>
+<span class="nc" id="L395">                            break;</span>
                         default:
-<span class="nc" id="L396">                            System.out.println(ch);</span>
-<span class="nc" id="L397">                            break;</span>
+<span class="nc" id="L397">                            System.out.println(ch);</span>
+<span class="nc" id="L398">                            break;</span>
                     }
                     break;
 
                 case &quot;ds[jl&quot;:
                 case &quot;выход&quot;:
-<span class="nc" id="L403">                    p = 1;</span>
+<span class="nc" id="L404">                    p = 1;</span>
 
-<span class="nc" id="L405">                    save();</span>
+<span class="nc" id="L406">                    save();</span>
 
-<span class="nc" id="L407">                    break;</span>
+<span class="nc" id="L408">                    break;</span>
 
                 default:
-<span class="nc" id="L410">                    System.out.println(&quot;Команда не распознана!&quot;);</span>
-<span class="nc" id="L411">                    break;</span>
+<span class="nc" id="L411">                    System.out.println(&quot;Команда не распознана!&quot;);</span>
+<span class="nc" id="L412">                    break;</span>
             }
 
 
         }
 
 
-<span class="nc" id="L418">    }</span>
+<span class="nc" id="L419">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
