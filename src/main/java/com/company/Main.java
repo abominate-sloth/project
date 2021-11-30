@@ -13,21 +13,22 @@ import java.net.URL;
 
 public class Main {
 
-    static int n = 0;
-    static Date[] a_Date = new Date[101];
-    static String[] a_Task = new String[101];
+    public static int n = 0;
+    public static Date[] a_Date = new Date[101];
+    public static String[] a_Task = new String[101];
     static float[][] kurs = new float[4][4];
 
-    static void help() {
+    public static void help() {
         System.out.println("Все команды вводить с маленькой буквы.\n" +
                 "\"просмотреть\" - показывает ве записи на указанный день. Вводить в виде: \"просмотреть день.месяц.год\" (пример: просмотреть 12.12.2021).\n" +
                 "\"конвертировать\" - позволяет производить перевод валют по заданному вами курсу (пример: конвертировать 12.63 BYN в RUB).\n" +
                 "\"добавить\" - позволяет сделать запись на указанный момент времени. Вводить в виде: \"добавить день.месяц.год-часы:минуты задача\" (пример: добавить 12.12.2021-15:15 пойти в гости).\n" +
                 "\"удалить\" - удаляет выбранную запись. Вводить в виде: \"удалить день.месяц.год-часы:минуты\" (пример: удалить 12.12.2021-15:15).\n" +
                 "\"выход\" - сохраняет все изменения и завершает работу.");
+
     }
 
-    static int add(Date day, String task) {
+    public static int add(Date day, String task) {
         for (int i = 0; i < n; i++)
             if ((a_Date[i].equals(day)) && (a_Task[i].equals(task)))
                 return 2;
@@ -95,7 +96,7 @@ public class Main {
         return 2;
     }
 
-    static float convert(String s) {
+    public static float convert(String s) {
         String[] podstr;
         String[] val = {"BYN", "RUB", "EUR", "USD"};
         int from, to;
