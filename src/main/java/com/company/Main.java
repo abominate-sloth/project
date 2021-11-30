@@ -79,7 +79,7 @@ public class Main {
         return 1;
     }
 
-    static int delete(Date day) {
+    public static int delete(Date day) {
         int i;
 
         if (n == 0)
@@ -281,7 +281,7 @@ public class Main {
         }
     }
 
-    static void restore()
+    public static void restore()
     {
         int i,j;
 

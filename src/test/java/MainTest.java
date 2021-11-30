@@ -29,12 +29,14 @@ class MainTest {
         Date day = format.parse("12.08.2022-12:43");
         Main obj2 = new Main();
         obj2.show(day);
-        assertEquals(day, obj2.a_Date[0] );
+        assertEquals(day, obj2.a_Date[0]);
+        assertEquals("asd",obj2.a_Task[0] );
 
     }
 
     @org.junit.jupiter.api.Test
-    void delete() {
+    void delete() throws ParseException {
+
     }
 
     @org.junit.jupiter.api.Test
@@ -55,6 +57,8 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     void restore() {
+        Main obj3 = new Main();
+        obj3.restore();
     }
 
     @org.junit.jupiter.api.Test
