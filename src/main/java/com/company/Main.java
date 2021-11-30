@@ -129,7 +129,7 @@ public class Main {
         String[] podstr;
 
         try {
-            File file = new File("D:\\project1\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("D:\\project\\src\\main\\java\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
             s = reader.readLine();
@@ -181,7 +181,7 @@ public class Main {
         try {
             int i, j;
 
-            File file = new File("D:\\project1\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("D:\\project\\src\\main\\java\\com\\company\\save.txt");
             FileWriter fw = new FileWriter(file);
 
             fw.write(Integer.toString(n) + '\n');
@@ -270,7 +270,7 @@ public class Main {
                             kurs[1][0] = Float.parseFloat(str3);
 
                         } catch (NumberFormatException e) {
-                       //     
+                            //
                         }
                     }
 
@@ -283,16 +283,16 @@ public class Main {
 
     static void restore()
     {
-     int i,j;
+        int i,j;
 
-     for(j=1;j<4;j++)
-         kurs[0][j]=1/kurs[j][0];
+        for(j=1;j<4;j++)
+            kurs[0][j]=1/kurs[j][0];
 
-     for(i=1;i<4;i++)
-         for(j=1;j<4;j++)
-             kurs[i][j]=1*kurs[i][0]*kurs[0][j];
+        for(i=1;i<4;i++)
+            for(j=1;j<4;j++)
+                kurs[i][j]=1*kurs[i][0]*kurs[0][j];
 
-     }
+    }
 
 
     public static void main(String[] args) throws IOException{
@@ -310,7 +310,7 @@ public class Main {
         String url = "https://myfin.by/currency/minsk";
 
         try{readFromWeb(url);
-        restore();}
+            restore();}
         catch(Exception B){};
 
         while (p == 0) {
@@ -417,4 +417,3 @@ public class Main {
 
     }
 }
-
