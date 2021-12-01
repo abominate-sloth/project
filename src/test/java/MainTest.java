@@ -34,6 +34,8 @@ class MainTest {
         assertEquals(day, obj.a_Date[0]);
         assertEquals("asd",obj.a_Task[0] );
         obj.delete(day);
+        int k=obj.delete(day);
+        assertEquals(k,2);
     }
 
     @org.junit.jupiter.api.Test
@@ -42,8 +44,13 @@ class MainTest {
         Date day = format.parse("12.08.2022-12:43:01");
         Main obj = new Main();
         obj.add(day, "asd");
+        int t=obj.n;
         int k=obj.delete(day);
-        assertEquals(k-1,obj.n);
+        assertEquals(k,1);
+        assertEquals(t-1,obj.n);
+        k=obj.delete(day);
+        assertEquals(k,2);
+
     }
 
     @org.junit.jupiter.api.Test
