@@ -176,29 +176,31 @@ public class Main {
 
 
     public static void save() {
-        try {
+
             int i, j;
 
-            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
-            FileWriter fw = new FileWriter(file);
+            File file = new File("src\\main\\java\\com\\company\\save.txt");
 
-            fw.write(Integer.toString(n) + '\n');
+            try(FileWriter fw = new FileWriter(file)) {
 
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+                fw.write(Integer.toString(n) + '\n');
 
-            for (i = 0; i < n; i++)
-                fw.write(df.format(a_Date[i]) + " - " + a_Task[i] + '\n');
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
 
-            for (i = 0; i < 4; i++) {
-                for (j = 0; j < 4; j++)
-                    fw.write(Float.toString(kurs[i][j]) + ' ');
-                fw.write('\n');
-            }
+                for (i = 0; i < n; i++)
+                    fw.write(df.format(a_Date[i]) + " - " + a_Task[i] + '\n');
 
-            fw.close();
-        } catch (IOException e) {
+                for (i = 0; i < 4; i++) {
+                    for (j = 0; j < 4; j++)
+                        fw.write(Float.toString(kurs[i][j]) + ' ');
+                    fw.write('\n');
+                }
 
-        }
+            } catch (IOException w){}
+
+
+
+
     }
 
     static void readFromWeb(String webURL) throws IOException {
@@ -282,6 +284,8 @@ public class Main {
     public static void restore()
     {
         int i,j;
+
+        kurs[0][0]=1;
 
         for(j=1;j<4;j++)
             kurs[0][j]=1/kurs[j][0];
