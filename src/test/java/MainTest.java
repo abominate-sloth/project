@@ -26,18 +26,24 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     void show() throws ParseException {
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-        Date day = format.parse("12.08.2022-12:43");
-        Main obj2 = new Main();
-        obj2.show(day);
-        assertEquals(day, obj2.a_Date[0]);
-        assertEquals("asd",obj2.a_Task[0] );
-
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
+        Date day = format.parse("12.08.2022-12:43:01");
+        Main obj = new Main();
+        obj.add(day, "asd");
+        obj.show(day);
+        assertEquals(day, obj.a_Date[0]);
+        assertEquals("asd",obj.a_Task[0] );
+        obj.delete(day);
     }
 
     @org.junit.jupiter.api.Test
     void delete() throws ParseException {
-
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
+        Date day = format.parse("12.08.2022-12:43:01");
+        Main obj = new Main();
+        obj.add(day, "asd");
+        int k=obj.delete(day);
+        assertEquals(k-1,obj.n);
     }
 
     @org.junit.jupiter.api.Test
