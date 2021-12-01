@@ -60,6 +60,7 @@ class MainTest {
     @org.junit.jupiter.api.Test
     void read() {
         Main obj = new Main();
+        obj.save();
         obj.read();
     }
 
