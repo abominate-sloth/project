@@ -422,8 +422,13 @@ public class Main {
 
             work(s);
 
-            if((podstr[1].equals("выход")) || (podstr[1].equals("выход")))
-            {p = 1;save();}
+            switch (podstr[1]) {
+                case "ds[jl":
+                case "выход": p = 1;
+                    break;
+                default:
+                    break;
+            }
 
 
         }
