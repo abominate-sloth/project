@@ -15,12 +15,13 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     public void add() throws ParseException {
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-        Date day = format.parse("12.08.2022-12:43");
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
+        Date day = format.parse("12.08.2022-12:43:01");
         Main obj = new Main();
         obj.add(day, "asd");
         assertEquals(day, obj.a_Date[obj.n - 1]);
         assertEquals("asd", obj.a_Task[obj.n - 1]);
+        obj.delete(day);
     }
 
     @org.junit.jupiter.api.Test
