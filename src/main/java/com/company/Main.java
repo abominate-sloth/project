@@ -123,7 +123,7 @@ public class Main {
         return mon * kurs[from][to];
     }
 
-    static void read() {
+    public static void read() {
         String s;
         Date day = new Date(), today = new Date();
         String[] podstr;
@@ -203,7 +203,7 @@ public class Main {
 
     }
 
-    static void readFromWeb(String webURL) throws IOException {
+    public static void readFromWeb(String webURL) throws IOException {
         URL url = new URL(webURL);
         InputStream is = url.openStream();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
@@ -313,7 +313,7 @@ public class Main {
 
         try{readFromWeb(url);
             restore();}
-        catch(Exception B){};
+        catch(Exception B){}
 
         while (p == 0) {
 

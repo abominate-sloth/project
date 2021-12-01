@@ -59,24 +59,31 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     void read() {
-        Main obj5 = new Main();
-        obj5.save();
+        Main obj = new Main();
+        obj.read();
     }
 
     @org.junit.jupiter.api.Test
     void save() {
-        Main obj4 = new Main();
-        obj4.save();
+        Main obj = new Main();
+        obj.save();
     }
 
     @org.junit.jupiter.api.Test
     void readFromWeb() {
+
+        String url = "https://myfin.by/currency/minsk";
+        Main obj = new Main();
+
+        try{obj.readFromWeb(url);
+            restore();}
+        catch(Exception B){}
     }
 
     @org.junit.jupiter.api.Test
     void restore() {
-        Main obj3 = new Main();
-        obj3.restore();
+        Main obj = new Main();
+        obj.restore();
     }
 
     @org.junit.jupiter.api.Test
