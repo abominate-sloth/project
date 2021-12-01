@@ -69,6 +69,13 @@ class MainTest {
 
     @org.junit.jupiter.api.Test
     void convert() {
+
+        Main obj = new Main();
+        obj.convert("конвертировать 15 BYN в USD");
+        obj.convert("конвертировать 15 BYN в US");
+        obj.convert("конвертировать 15 BY в USD");
+        obj.convert("конвертировать 1j BYN в USD");
+
     }
 
     @org.junit.jupiter.api.Test
@@ -82,16 +89,18 @@ class MainTest {
         day = format.parse("12.08.2022-12:43:01");
         obj.add(day,"asd");
 
+        obj.read();
         obj.save();
         obj.read();
 
-        day = format.parse("12.08.2022-12:43:03");
+        DateFormat format1 = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+
+        day = format1.parse("12.08.2022-12:43");
         obj.delete(day);
-        day = format.parse("12.08.2022-12:43:02");
         obj.delete(day);
-        day = format.parse("12.08.2022-12:43:01");
         obj.delete(day);
 
+        obj.save();
 
     }
 
