@@ -27,13 +27,27 @@ class MainTest {
     @org.junit.jupiter.api.Test
     void show() throws ParseException {
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
-        Date day = format.parse("12.08.2022-12:43:01");
+        Date day;
         Main obj = new Main();
-        obj.add(day, "asd");
+
+        day = format.parse("12.08.2022-12:43:03");
+        obj.add(day,"asd");
+        day = format.parse("12.08.2022-12:43:02");
+        obj.add(day,"asd");
+        day = format.parse("12.08.2022-12:43:01");
+        obj.add(day,"asd");
+
         obj.show(day);
-        assertEquals(day, obj.a_Date[0]);
-        assertEquals("asd",obj.a_Task[0] );
+        assertEquals(day, obj.a_Date[obj.n-1]);
+        assertEquals("asd",obj.a_Task[obj.n-1] );
+
+        day = format.parse("12.08.2022-12:43:03");
         obj.delete(day);
+        day = format.parse("12.08.2022-12:43:02");
+        obj.delete(day);
+        day = format.parse("12.08.2022-12:43:01");
+        obj.delete(day);
+
         int k=obj.delete(day);
         assertEquals(k,2);
     }
@@ -58,10 +72,27 @@ class MainTest {
     }
 
     @org.junit.jupiter.api.Test
-    void read() {
+    void read() throws ParseException{
         Main obj = new Main();
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
+        Date day = format.parse("12.08.2022-12:43:03");
+        obj.add(day,"asd");
+        day = format.parse("12.08.2022-12:43:02");
+        obj.add(day,"asd");
+        day = format.parse("12.08.2022-12:43:01");
+        obj.add(day,"asd");
+
         obj.save();
         obj.read();
+
+        day = format.parse("12.08.2022-12:43:03");
+        obj.delete(day);
+        day = format.parse("12.08.2022-12:43:02");
+        obj.delete(day);
+        day = format.parse("12.08.2022-12:43:01");
+        obj.delete(day);
+
+
     }
 
     @org.junit.jupiter.api.Test

@@ -146,9 +146,7 @@ public class Main {
                     podstr = s.split(" +", 3);
                     try {
                         day = format.parse(podstr[0]);
-                    } catch (Exception v) {
-                        System.out.println(podstr[0]);
-                    }
+                    } catch (Exception v) {}
 
                     if (today.getTime() - day.getTime() < 24 * 60 * 60 * 1000 * 2) {
                         a_Date[n] = day;
