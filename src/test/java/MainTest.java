@@ -128,6 +128,18 @@ class MainTest {
     }
 
     @org.junit.jupiter.api.Test
+    void work() {
+        Main obj = new Main();
+        obj.work("конвертировать 12 BYN d EUR");
+        obj.work("добавить 12.12.2019-15:15 пойти в гости");
+        obj.work("просмотреть 12.12.2019-15:15");
+        obj.work("удалить 12.12.2019-15:15");
+        obj.work("удалаить 12.12.2019-15:15");
+
+    }
+
+    @org.junit.jupiter.api.Test
     void main() {
+
     }
 }

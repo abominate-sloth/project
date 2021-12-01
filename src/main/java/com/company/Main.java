@@ -294,12 +294,106 @@ public class Main {
 
     }
 
+    public static void work(String s)
+    {
+        int check;
+        Date day;
+        String[] podstr;
+
+        s = ' ' + s;
+        podstr = s.split(" +", 4);
+        podstr[1] = podstr[1].toLowerCase();
+
+        switch (podstr[1]) {
+            case "lj,fdbnm":
+            case "добавить":
+                try {
+                    DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+                    day = format.parse(podstr[2]);
+
+                    check = add(day, podstr[3]);
+
+                    if (check == 2)
+                        System.out.println("Такая запись уже есть!");
+                    else System.out.println("Успешно добавлено!");
+
+                } catch (Exception x) {
+                    System.out.println("Не удалось распознать дату либо отсуствует задача!");
+                }
+
+                save();
+
+                break;
+
+            case "ghjcvjnhtnm":
+            case "просмотреть":
+                try {
+                    DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                    day = format.parse(podstr[2]);
+                    check = show(day);
+                    if (check == 2)
+                        System.out.println("Ничего не найдено!");
+
+                } catch (Exception e) {
+                    System.out.println("Не удалось распознать дату!");
+                }
+                break;
+
+            case "gjvjom":
+            case "помощь":
+                help();
+                break;
+
+            case "elfkbnm":
+            case "удалить":
+                try {
+                    DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+                    day = format.parse(podstr[2]);
+
+                    check = delete(day);
+                    if (check == 2)
+                        System.out.println("То,что можно было удалить, не найдено!");
+                    else System.out.println("Удалено успешно!");
+                } catch (Exception x) {
+                    System.out.println("Не удалось распознать дату!");
+                }
+
+                save();
+
+                break;
+
+            case "rjydthnbhjdfnm":
+            case "конвертировать":
+                float ch = convert(s);
+                int chek = (int) ch;
+                switch (chek) {
+                    case -1:
+                        System.out.println("Исходная валюта не опознана!");
+                        break;
+                    case -2:
+                        System.out.println("Итоговая валюта не опознана!");
+                        break;
+                    case -3:
+                        System.out.println("Не удалось определить сумму, возможно она написана через ','!");
+                        break;
+                    default:
+                        System.out.println(ch);
+                        break;
+                }
+                break;
+
+            default:
+                System.out.println("Команда не распознана!");
+                break;
+        }
+    }
+
 
     public static void main(String[] args){
         System.out.println("Чтобы ознакомиться с инструкциями введите \"помощь\".");
 
-        int p = 0, check;
-        Date day;
+        int p = 0;
+
         String s;
         String[] podstr;
 
@@ -316,100 +410,16 @@ public class Main {
         while (p == 0) {
 
             s = in.nextLine();
+
             s = ' ' + s;
             podstr = s.split(" +", 4);
+
             podstr[1] = podstr[1].toLowerCase();
 
-            switch (podstr[1]) {
-                case "lj,fdbnm":
-                case "добавить":
-                    try {
-                        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-                        day = format.parse(podstr[2]);
+            work(s);
 
-                        check = add(day, podstr[3]);
-
-                        if (check == 2)
-                            System.out.println("Такая запись уже есть!");
-                        else System.out.println("Успешно добавлено!");
-
-                    } catch (Exception x) {
-                        System.out.println("Не удалось распознать дату либо отсуствует задача!");
-                    }
-
-                    save();
-
-                    break;
-
-                case "ghjcvjnhtnm":
-                case "просмотреть":
-                    try {
-                        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                        day = format.parse(podstr[2]);
-                        check = show(day);
-                        if (check == 2)
-                            System.out.println("Ничего не найдено!");
-
-                    } catch (Exception e) {
-                        System.out.println("Не удалось распознать дату!");
-                    }
-                    break;
-
-                case "gjvjom":
-                case "помощь":
-                    help();
-                    break;
-
-                case "elfkbnm":
-                case "удалить":
-                    try {
-                        DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-                        day = format.parse(podstr[2]);
-
-                        check = delete(day);
-                        if (check == 2)
-                            System.out.println("То,что можно было удалить, не найдено!");
-                        else System.out.println("Удалено успешно!");
-                    } catch (Exception x) {
-                        System.out.println("Не удалось распознать дату!");
-                    }
-
-                    save();
-
-                    break;
-
-                case "rjydthnbhjdfnm":
-                case "конвертировать":
-                    float ch = convert(s);
-                    int chek = (int) ch;
-                    switch (chek) {
-                        case -1:
-                            System.out.println("Исходная валюта не опознана!");
-                            break;
-                        case -2:
-                            System.out.println("Итоговая валюта не опознана!");
-                            break;
-                        case -3:
-                            System.out.println("Не удалось определить сумму, возможно она написана через ','!");
-                            break;
-                        default:
-                            System.out.println(ch);
-                            break;
-                    }
-                    break;
-
-                case "ds[jl":
-                case "выход":
-                    p = 1;
-
-                    save();
-
-                    break;
-
-                default:
-                    System.out.println("Команда не распознана!");
-                    break;
-            }
+            if((podstr[1].equals("выход")) | (podstr[1].equals("выход")))
+            {p = 1;save();}
 
 
         }
