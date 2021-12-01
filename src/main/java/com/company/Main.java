@@ -123,87 +123,87 @@ public class Main {
         return mon * kurs[from][to];
     }
 
-    static void read() {
+    public static void read() {
         String s;
         Date day = new Date(), today = new Date();
         String[] podstr;
 
         try {
-            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("src\\main\\java\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            s = reader.readLine();
 
-            int i, j, k;
-            n = 0;
-            k = Integer.parseInt(s);
-
-            DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-
-            for (i = 0; i < k; i++) {
+            try(BufferedReader reader = new BufferedReader(fr)) {
                 s = reader.readLine();
-                podstr = s.split(" +", 3);
-                try {
-                    day = format.parse(podstr[0]);
-                } catch (Exception v) {
-                    System.out.println(podstr[0]);
+
+                int i, j, k;
+                n = 0;
+                k = Integer.parseInt(s);
+
+                DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+
+                for (i = 0; i < k; i++) {
+                    s = reader.readLine();
+                    podstr = s.split(" +", 3);
+                    try {
+                        day = format.parse(podstr[0]);
+                    } catch (Exception v) {
+                        System.out.println(podstr[0]);
+                    }
+
+                    if (today.getTime() - day.getTime() < 24 * 60 * 60 * 1000 * 2) {
+                        a_Date[n] = day;
+                        a_Task[n] = podstr[2];
+                        n++;
+                    }
                 }
 
-                if (today.getTime() - day.getTime() < 24 * 60 * 60 * 1000 * 2) {
-                    a_Date[n] = day;
-                    a_Task[n] = podstr[2];
-                    n++;
+
+                for (i = 0; i < 4; i++) {
+                    s = reader.readLine();
+                    podstr = s.split(" +", 4);
+
+                    for (j = 0; j < 4; j++)
+                        kurs[i][j] = Float.parseFloat(podstr[j]);
                 }
-            }
-
-
-            for (i = 0; i < 4; i++) {
-                s = reader.readLine();
-                podstr = s.split(" +", 4);
-
-                for (j = 0; j < 4; j++)
-                    kurs[i][j] = Float.parseFloat(podstr[j]);
-            }
-
-
-            fr.close();
+            }catch(Exception w){}
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
+
 
     }
 
 
     public static void save() {
-        try {
+
             int i, j;
 
-            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
-            FileWriter fw = new FileWriter(file);
+            File file = new File("src\\main\\java\\com\\company\\save.txt");
 
-            fw.write(Integer.toString(n) + '\n');
+            try(FileWriter fw = new FileWriter(file)) {
 
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+                fw.write(Integer.toString(n) + '\n');
 
-            for (i = 0; i < n; i++)
-                fw.write(df.format(a_Date[i]) + " - " + a_Task[i] + '\n');
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
 
-            for (i = 0; i < 4; i++) {
-                for (j = 0; j < 4; j++)
-                    fw.write(Float.toString(kurs[i][j]) + ' ');
-                fw.write('\n');
-            }
+                for (i = 0; i < n; i++)
+                    fw.write(df.format(a_Date[i]) + " - " + a_Task[i] + '\n');
 
-            fw.close();
-        } catch (IOException e) {
+                for (i = 0; i < 4; i++) {
+                    for (j = 0; j < 4; j++)
+                        fw.write(Float.toString(kurs[i][j]) + ' ');
+                    fw.write('\n');
+                }
 
-        }
+            } catch (IOException w){}
+
+
+
+
     }
 
-    static void readFromWeb(String webURL) throws IOException {
+    public static void readFromWeb(String webURL) throws IOException {
         URL url = new URL(webURL);
         InputStream is = url.openStream();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
@@ -285,6 +285,8 @@ public class Main {
     {
         int i,j;
 
+        kurs[0][0]=1;
+
         for(j=1;j<4;j++)
             kurs[0][j]=1/kurs[j][0];
 
@@ -311,7 +313,7 @@ public class Main {
 
         try{readFromWeb(url);
             restore();}
-        catch(Exception B){};
+        catch(Exception B){}
 
         while (p == 0) {
 
