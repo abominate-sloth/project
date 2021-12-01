@@ -129,51 +129,48 @@ public class Main {
         String[] podstr;
 
         try {
-            File file = new File("C:\\Users\\User\\project\\src\\main\\java\\com\\company\\save.txt");
+            File file = new File("src\\main\\java\\com\\company\\save.txt");
             FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            s = reader.readLine();
 
-            int i, j, k;
-            n = 0;
-            k = Integer.parseInt(s);
-
-            DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
-
-            for (i = 0; i < k; i++) {
+            try(BufferedReader reader = new BufferedReader(fr)) {
                 s = reader.readLine();
-                podstr = s.split(" +", 3);
-                try {
-                    day = format.parse(podstr[0]);
-                } catch (Exception v) {
-                    System.out.println(podstr[0]);
+
+                int i, j, k;
+                n = 0;
+                k = Integer.parseInt(s);
+
+                DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+
+                for (i = 0; i < k; i++) {
+                    s = reader.readLine();
+                    podstr = s.split(" +", 3);
+                    try {
+                        day = format.parse(podstr[0]);
+                    } catch (Exception v) {
+                        System.out.println(podstr[0]);
+                    }
+
+                    if (today.getTime() - day.getTime() < 24 * 60 * 60 * 1000 * 2) {
+                        a_Date[n] = day;
+                        a_Task[n] = podstr[2];
+                        n++;
+                    }
                 }
 
-                if (today.getTime() - day.getTime() < 24 * 60 * 60 * 1000 * 2) {
-                    a_Date[n] = day;
-                    a_Task[n] = podstr[2];
-                    n++;
+
+                for (i = 0; i < 4; i++) {
+                    s = reader.readLine();
+                    podstr = s.split(" +", 4);
+
+                    for (j = 0; j < 4; j++)
+                        kurs[i][j] = Float.parseFloat(podstr[j]);
                 }
-            }
+            }catch(Exception w){}
 
-
-            for (i = 0; i < 4; i++) {
-                s = reader.readLine();
-                podstr = s.split(" +", 4);
-
-                for (j = 0; j < 4; j++)
-                    kurs[i][j] = Float.parseFloat(podstr[j]);
-            }
-
-
-            fr.close();
-            reader.close();
-            
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
+
 
     }
 
