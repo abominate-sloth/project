@@ -382,6 +382,10 @@ public class Main {
                 }
                 break;
 
+            case "ds[jl":
+            case "выход":
+                break;
+
             default:
                 System.out.println("Команда не распознана!");
                 break;
@@ -418,7 +422,7 @@ public class Main {
 
             work(s);
 
-            if((podstr[1].equals("выход")) | (podstr[1].equals("выход")))
+            if((podstr[1].equals("выход")) || (podstr[1].equals("выход")))
             {p = 1;save();}
 
 
