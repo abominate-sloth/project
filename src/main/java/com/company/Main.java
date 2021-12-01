@@ -167,7 +167,8 @@ public class Main {
 
 
             fr.close();
-
+            reader.close();
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
